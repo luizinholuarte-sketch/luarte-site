@@ -1,0 +1,32 @@
+{
+  "site": {
+    "title": "Luarte Shows",
+    "tagline": "Produção Artística desde 1988",
+    "phone": "5521987971000",
+    "whatsapp": "5521987971000",
+    "email": "luizdiversaoearte@gmail.com",
+    "social": {
+      "instagram": "@luarteshows",
+      "facebook": "/luarteshows",
+      "youtube": "/channel/luarteshows"
+    }
+  },
+  "seo": {
+    "description": "Luarte Shows - 40 anos de excelência em produção de shows, agenciamento artístico e intermediação no Brasil. Luizinho Silveira.",
+    "keywords": ["shows", "produção artística", "agenciamento", "música brasileira", "eventos", "Luizinho Silveira", "contratar artistas", "produção de shows"]
+  },
+  "features": {
+    "enableBooking": true,
+    "enableChat": true,
+    "darkModeDefault": true,
+    "showLegacyArtists": true,
+    "enableGallery": true
+  },
+  "company": {
+    "name": "Luarte Shows Produção Artística Ltda",
+    "cnpj": "",
+    "address": "Rio de Janeiro, RJ",
+    "since": 1988,
+    "founder": "Luiz Silveira (Luizinho Silveira)"
+  }
+}

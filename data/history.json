@@ -1,0 +1,56 @@
+{
+  "milestones": [
+    {
+      "year": 1988,
+      "title": "Fundação da Luarte Shows",
+      "description": "Luiz Silveira deixa o magistério e funda a Luarte Shows, iniciando sua trajetória no show business",
+      "icon": "foundation",
+      "highlight": true
+    },
+    {
+      "year": 1990,
+      "title": "Parceria Petrobrás",
+      "description": "Início de contrato de 5 anos com a Petrobrás, consolidando a empresa no mercado corporativo",
+      "client": "Petrobrás",
+      "duration": "5 anos"
+    },
+    {
+      "year": 1998,
+      "title": "Ancar Ivanhoe",
+      "description": "Parceria com uma das maiores plataformas de shopping centers do Brasil",
+      "client": "Ancar Ivanhoe",
+      "duration": "8 anos"
+    },
+    {
+      "year": 2005,
+      "title": "FIRJAN-SESI",
+      "description": "Contrato com Federação das Indústrias do Rio de Janeiro para eventos culturais",
+      "client": "FIRJAN-SESI",
+      "duration": "5 anos"
+    },
+    {
+      "year": 2008,
+      "title": "Paulo Octávio Empreendimentos",
+      "description": "Produções no Distrito Federal para um dos maiores grupos imobiliários do DF",
+      "client": "Paulo Octávio Empreendimentos",
+      "duration": "6 anos"
+    },
+    {
+      "year": 2010,
+      "title": "Expansão Nacional",
+      "description": "Trabalhos para Secretarias de Cultura do RJ, Natal, Fortaleza, Salvador e Governo do DF"
+    },
+    {
+      "year": 2015,
+      "title": "Coca-Cola Brasil",
+      "description": "Produções esporádicas para grandes campanhas da marca"
+    },
+    {
+      "year": 2024,
+      "title": "Lançamento do Livro",
+      "description": "Publicação de 'Descortinando o Show Business' no Clube de Autores e Amazon Kindle",
+      "highlight": true,
+      "link": "https://clubedeautores.com.br"
+    }
+  ]
+}

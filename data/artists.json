@@ -1,0 +1,104 @@
+{
+  "version": "2026.1",
+  "lastUpdated": "2026-03-15",
+  "artists": [
+    {
+      "id": "alceu-valenca",
+      "name": "Alceu Valença",
+      "genre": "MPB",
+      "status": "active",
+      "image": "assets/images/artists/alceu-valenca.jpg",
+      "bio": "Ícone da música brasileira, conhecido por Anunciação e Morena Tropicana",
+      "highlights": ["Anunciação", "Morena Tropicana", "Coração Bobo"]
+    },
+    {
+      "id": "elba-ramalho",
+      "name": "Elba Ramalho",
+      "genre": "Forró/MPB",
+      "status": "active",
+      "image": "assets/images/artists/elba-ramalho.jpg",
+      "bio": "Rainha do forró, uma das maiores vozes da música brasileira",
+      "highlights": ["De Volta pro Aconchego", "Bananeira", "Ciranda da Rosa Vermelha"]
+    },
+    {
+      "id": "jorge-benjor",
+      "name": "Jorge Ben Jor",
+      "genre": "Samba-Rock",
+      "status": "active",
+      "image": "assets/images/artists/jorge-benjor.jpg",
+      "bio": "Pai do samba-rock, ícone da música brasileira mundial",
+      "highlights": ["Mas Que Nada", "Chove Chuva", "País Tropical"]
+    },
+    {
+      "id": "ivete-sangalo",
+      "name": "Ivete Sangalo",
+      "genre": "Axé/Pop",
+      "status": "active",
+      "image": "assets/images/artists/ivete-sangalo.jpg",
+      "bio": "Maior estrela do axé music, conhecida como Veveta",
+      "highlights": ["Festa", "Sorte Grande", "Se Eu Não Te Amasse Tanto Assim"]
+    },
+    {
+      "id": "zeca-baleiro",
+      "name": "Zeca Baleiro",
+      "genre": "MPB",
+      "status": "active",
+      "image": "assets/images/artists/zeca-baleiro.jpg",
+      "bio": "Cantor e compositor maranhense, mestre das letras",
+      "highlights": ["Disritmia", "Telegrama", "Proibido da Praça"]
+    },
+    {
+      "id": "lenine",
+      "name": "Lenine",
+      "genre": "MPB",
+      "status": "active",
+      "image": "assets/images/artists/lenine.jpg",
+      "bio": "Cantor, compositor e multi-instrumentista pernambucano",
+      "highlights": ["Jack Soul Brasileiro", "O Céu é Aqui", "A Ponte"]
+    },
+    {
+      "id": "ana-carolina",
+      "name": "Ana Carolina",
+      "genre": "MPB/Pop",
+      "status": "active",
+      "image": "assets/images/artists/ana-carolina.jpg",
+      "bio": "Cantora e compositora com voz marcante e letras poéticas",
+      "highlights": ["Quem de Nós Dois", "Encostar na Tua", "Ela é Bamba"]
+    },
+    {
+      "id": "geraldo-azevedo",
+      "name": "Geraldo Azevedo",
+      "genre": "MPB",
+      "status": "active",
+      "image": "assets/images/artists/geraldo-azevedo.jpg",
+      "bio": "Compositor pernambucano, ícone da música nordestina",
+      "highlights": ["Dia Branco", "Táxi Lunar", "Barcarola do Outono"]
+    }
+  ],
+  "legacy": [
+    {
+      "name": "Belchior",
+      "status": "deceased",
+      "year": "1946-2017",
+      "tribute": "In memoriam - eterno na música brasileira, autor de Apenas um Rapaz Latinoamericano"
+    },
+    {
+      "name": "Moraes Moreira",
+      "status": "deceased",
+      "year": "1947-2020",
+      "tribute": "In memoriam - ícone dos Novos Baianos e da música brasileira"
+    },
+    {
+      "name": "Elza Soares",
+      "status": "deceased",
+      "year": "1930-2022",
+      "tribute": "In memoriam - a voz e a vez da samba, eterna Mulher do Fim do Mundo"
+    },
+    {
+      "name": "Erasmo Carlos",
+      "status": "deceased",
+      "year": "1941-2022",
+      "tribute": "In memoriam - Tremendão, ícone do rock nacional"
+    }
+  ]
+}

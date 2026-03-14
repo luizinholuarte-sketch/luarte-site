@@ -1,0 +1,22 @@
+{
+  "testimonials": [
+    {
+      "artist": "Elba Ramalho",
+      "quote": "Trabalhar com a Luarte é garantia de profissionalismo, dedicação e carinho com o artista. Luizinho entende como ninguém os bastidores da música.",
+      "event": "Turnê 2019",
+      "year": 2019
+    },
+    {
+      "artist": "Zeca Baleiro",
+      "quote": "Luizinho Silveira é daqueles profissionais que fazem a diferença no show business. Conhece o mercado como poucos.",
+      "event": "Show de Lançamento",
+      "year": 2018
+    },
+    {
+      "artist": "Geraldo Azevedo",
+      "quote": "Quase 40 anos de estrada com a Luarte Shows. Parceria que transcende negócio, é amizade e respeito mútuo.",
+      "event": "Comemoração 35 anos",
+      "year": 2023
+    }
+  ]
+}
