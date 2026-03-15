@@ -22,6 +22,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <!-- Custom Styles -->
     <style>
         * {
@@ -32,26 +35,36 @@
         
         html {
             scroll-behavior: smooth;
-            scroll-padding-top: 100px; /* ✅ CRÍTICO: Previne navbar cobrindo conteúdo */
+            scroll-padding-top: 100px;
         }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow-x: hidden;
+            background: #f8f9fa;
         }
         
+        /* Gradient Backgrounds */
         .gradient-bg {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+        
+        .gradient-gold {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
         }
         
         .gold-accent {
             color: #d4af37;
         }
         
-        .gold-bg {
+        .gold-text {
             background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
+        /* Hero Section */
         .hero-section {
             min-height: 100vh;
             display: flex;
@@ -71,58 +84,101 @@
             z-index: 1;
         }
         
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
+            z-index: 1;
+        }
+        
         .hero-content {
             position: relative;
             z-index: 2;
             text-align: center;
             color: white;
             padding: 2rem;
+            max-width: 1200px;
         }
         
+        /* Navbar */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: rgba(26, 26, 46, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(26, 26, 46, 0.98);
+            backdrop-filter: blur(15px);
             z-index: 1000;
             padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            padding: 0.5rem 2rem;
+            background: rgba(26, 26, 46, 1);
         }
         
         .navbar a {
             color: white;
             text-decoration: none;
-            margin: 0 1rem;
-            transition: color 0.3s ease;
+            margin: 0 0.8rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .navbar a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #d4af37;
+            transition: width 0.3s ease;
+        }
+        
+        .navbar a:hover::after {
+            width: 100%;
         }
         
         .navbar a:hover {
             color: #d4af37;
         }
         
+        /* Buttons */
         .btn {
             display: inline-block;
-            padding: 1rem 2rem;
+            padding: 1rem 2.5rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
             transition: all 0.3s ease;
             cursor: pointer;
             border: none;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .btn-primary {
             background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
             color: #1a1a2e;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
         }
         
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.6);
         }
         
         .btn-outline {
@@ -134,88 +190,208 @@
         .btn-outline:hover {
             background: #d4af37;
             color: #1a1a2e;
+            transform: translateY(-3px);
         }
         
+        .btn-large {
+            padding: 1.2rem 3rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Sections */
         .section {
-            padding: 5rem 2rem;
+            padding: 6rem 2rem;
         }
         
         .section-title {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
             color: #1a1a2e;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            margin: 1rem auto 0;
+            border-radius: 2px;
         }
         
         .section-subtitle {
             text-align: center;
             color: #666;
-            margin-bottom: 3rem;
-            font-size: 1.1rem;
+            margin-bottom: 4rem;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
         
+        /* Cards */
         .card {
             background: white;
-            border-radius: 15px;
+            border-radius: 20px;
             padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .card:hover::before {
+            transform: scaleX(1);
         }
         
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
         }
         
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Stats */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 2rem;
-            margin: 3rem 0;
+            margin: 4rem 0;
         }
         
         .stat-item {
             text-align: center;
-            padding: 2rem;
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.15);
         }
         
         .stat-number {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: bold;
-            color: #d4af37;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .stat-label {
-            color: #666;
+            color: rgba(255, 255, 255, 0.8);
             margin-top: 0.5rem;
+            font-size: 1.1rem;
         }
         
+        /* Timeline */
         .timeline {
             position: relative;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #d4af37 0%, #f4d03f 100%);
+            border-radius: 2px;
         }
         
         .timeline-item {
             padding: 2rem;
-            border-left: 3px solid #d4af37;
-            margin-left: 2rem;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
             position: relative;
+            width: 45%;
+            transition: all 0.4s ease;
+        }
+        
+        .timeline-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .timeline-item:nth-child(odd) {
+            margin-left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            margin-left: 55%;
+        }
+        
+        .timeline-item:nth-child(even):hover {
+            transform: translateX(-10px);
         }
         
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -10px;
-            top: 2rem;
             width: 20px;
             height: 20px;
             background: #d4af37;
             border-radius: 50%;
+            top: 2.5rem;
         }
         
+        .timeline-item:nth-child(odd)::before {
+            right: -52px;
+        }
+        
+        .timeline-item:nth-child(even)::before {
+            left: -52px;
+        }
+        
+        .timeline-year {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Contact Form */
         .contact-form {
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
         }
         
         .form-group {
@@ -226,18 +402,20 @@
             display: block;
             margin-bottom: 0.5rem;
             color: #1a1a2e;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 0.95rem;
         }
         
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 1rem;
+            padding: 1rem 1.2rem;
             border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            border-radius: 12px;
             font-size: 1rem;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s ease;
+            font-family: inherit;
         }
         
         .form-group input:focus,
@@ -245,32 +423,73 @@
         .form-group textarea:focus {
             outline: none;
             border-color: #d4af37;
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
         }
         
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        /* Footer */
         footer {
             background: #1a1a2e;
             color: white;
-            padding: 3rem 2rem;
+            padding: 4rem 2rem 2rem;
             text-align: center;
         }
         
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: #d4af37;
+        }
+        
+        /* WhatsApp Float */
         .whatsapp-float {
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            background: #25D366;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
             color: white;
             padding: 1rem 1.5rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: bold;
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 5px 25px rgba(37, 211, 102, 0.4);
             z-index: 1000;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
         .whatsapp-float:hover {
             transform: scale(1.1);
+            box-shadow: 0 10px 35px rgba(37, 211, 102, 0.6);
         }
         
         /* Mobile Menu */
@@ -281,8 +500,10 @@
             color: white;
             font-size: 1.5rem;
             cursor: pointer;
+            padding: 0.5rem;
         }
         
+        /* Responsive */
         @media (max-width: 768px) {
             .navbar {
                 flex-direction: row;
@@ -297,7 +518,8 @@
                 left: 0;
                 right: 0;
                 background: rgba(26, 26, 46, 0.98);
-                padding: 1rem;
+                padding: 1.5rem;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             }
             
             .navbar .nav-links.active {
@@ -305,7 +527,7 @@
             }
             
             .navbar a {
-                margin: 0.5rem 0;
+                margin: 0.75rem 0;
             }
             
             .mobile-menu-btn {
@@ -317,20 +539,192 @@
             }
             
             .stat-number {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
+            
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                margin-left: 50px !important;
+            }
+            
+            .timeline-item::before {
+                left: -38px !important;
+            }
+            
+            .timeline-item:hover {
+                transform: none !important;
+            }
+            
+            .whatsapp-float {
+                bottom: 1rem;
+                right: 1rem;
+                padding: 0.8rem 1.2rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #1a1a2e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loader-content {
+            text-align: center;
+        }
+        
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(212, 175, 55, 0.2);
+            border-top-color: #d4af37;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Video Cards */
+        .video-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        
+        .video-thumbnail {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .video-card:hover .video-thumbnail {
+            transform: scale(1.1);
+        }
+        
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(212, 175, 55, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .video-card:hover .video-play-btn {
+            transform: translate(-50%, -50%) scale(1.2);
+            background: #d4af37;
+        }
+        
+        /* Client Logos */
+        .client-logos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+            align-items: center;
+        }
+        
+        .client-logo {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            color: #1a1a2e;
+        }
+        
+        .client-logo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Quote */
+        .quote-box {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            margin: 3rem 0;
+            position: relative;
+        }
+        
+        .quote-box::before {
+            content: '"';
+            font-size: 8rem;
+            position: absolute;
+            top: -2rem;
+            left: 2rem;
+            color: rgba(212, 175, 55, 0.2);
+            font-family: Georgia, serif;
+        }
+        
+        .quote-text {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .quote-author {
+            color: #d4af37;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <p class="gold-accent text-xl">Carregando Experiência...</p>
+        </div>
+    </div>
+
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="text-2xl font-bold">
             <a href="#hero" class="gold-accent">LUARTE</a><span>®</span>
         </div>
         
         <!-- Mobile Menu Button -->
-        <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+        <button class="mobile-menu-btn" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
         
         <!-- Desktop Menu -->
         <div class="nav-links hidden md:flex" id="navLinks">
@@ -346,30 +740,35 @@
     <!-- Hero Section -->
     <section class="hero-section gradient-bg" id="hero">
         <div class="hero-overlay"></div>
+        <div class="hero-particles"></div>
         <div class="hero-content">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4">
-                Produção Artística & Agenciamento
+            <h1 class="text-4xl md:text-7xl font-bold mb-6 animate-fade-in">
+                Produção Artística <span class="gold-text">&</span> Agenciamento
             </h1>
-            <p class="text-xl md:text-2xl mb-8 gold-accent">
+            <p class="text-xl md:text-3xl mb-8 gold-accent animate-fade-in-delay">
                 "Quase 40 anos transformando talentos em experiências inesquecíveis"
             </p>
-            <div class="flex flex-col md:flex-row gap-4 justify-center">
-                <a href="#videos" class="btn btn-primary">Assistir Vídeos</a>
-                <a href="#contato" class="btn btn-outline">Fale Conosco</a>
+            <div class="flex flex-col md:flex-row gap-4 justify-center animate-fade-in-delay-2">
+                <a href="#videos" class="btn btn-primary btn-large">
+                    <i class="fas fa-play-circle mr-2"></i> Assistir Vídeos
+                </a>
+                <a href="#contato" class="btn btn-outline btn-large">
+                    <i class="fas fa-envelope mr-2"></i> Fale Conosco
+                </a>
             </div>
             
             <!-- Stats -->
-            <div class="stats-grid mt-12">
+            <div class="stats-grid">
                 <div class="stat-item">
-                    <div class="stat-number">40+</div>
+                    <div class="stat-number" data-count="40">0</div>
                     <div class="stat-label">Anos de Atuação</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">200+</div>
+                    <div class="stat-number" data-count="200">0</div>
                     <div class="stat-label">Artistas Agenciados</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">1988</div>
+                    <div class="stat-number" data-count="1988">0</div>
                     <div class="stat-label">Fundação</div>
                 </div>
                 <div class="stat-item">
@@ -386,24 +785,34 @@
             <h2 class="section-title">A Tradição do Show Business</h2>
             <p class="section-subtitle">Excelência em produção artística desde 1988</p>
             
-            <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div>
-                    <p class="text-lg mb-4">
-                        Desde 1988, a <strong>Luarte Shows</strong>, sob a direção de <strong>Luiz Silveira (Luizinho Silveira)</strong>, 
-                        é referência em produção de shows, agenciamento artístico e intermediação entre contratantes e artistas.
+                    <p class="text-lg mb-6 text-gray-700 leading-relaxed">
+                        Desde 1988, a <strong class="gold-accent">Luarte Shows</strong>, sob a direção de 
+                        <strong>Luiz Silveira (Luizinho Silveira)</strong>, é referência em produção de shows, 
+                        agenciamento artístico e intermediação entre contratantes e artistas.
                     </p>
-                    <p class="text-lg mb-4">
-                        Nossa expertise facilita negociações complexas, sugerindo artistas de acordo com o perfil, espaço, 
-                        evento e budget disponível. Executamos produções completas, cuidando de toda infraestrutura necessária.
-                    </p>
-                    <p class="text-lg mb-4">
-                        Atendemos desde pequenos bares e casas de espetáculos até grandes corporações como 
-                        <strong>Petrobrás, Ancar Ivanhoe, FIRJAN-SESI, Paulo Octávio Empreendimentos</strong>, entre outras.
+                    <p class="text-lg mb-6 text-gray-700 leading-relaxed">
+                        Nossa expertise facilita negociações complexas, sugerindo artistas de acordo com o perfil, 
+                        espaço, evento e budget disponível. Executamos produções completas, cuidando de toda 
+                        infraestrutura necessária.
                     </p>
                     
-                    <div class="bg-gray-100 p-4 rounded-lg mt-4">
-                        <h4 class="font-bold text-lg mb-2">⚠️ Importante</h4>
-                        <p class="text-sm">
+                    <!-- Client Logos -->
+                    <div class="client-logos">
+                        <div class="client-logo">🏢 PETROBRÁS <span class="text-sm text-gray-500">(5 anos)</span></div>
+                        <div class="client-logo">🎭 ANCAR IVANHOE <span class="text-sm text-gray-500">(8 anos)</span></div>
+                        <div class="client-logo">📚 FIRJAN-SESI <span class="text-sm text-gray-500">(5 anos)</span></div>
+                        <div class="client-logo">🏗️ PAULO OCTÁVIO <span class="text-sm text-gray-500">(6 anos)</span></div>
+                    </div>
+                    
+                    <!-- Important Notice -->
+                    <div class="bg-gradient-to-r from-yellow-50 to-orange-50 p-6 rounded-2xl border-l-4 border-yellow-500 mt-6">
+                        <h4 class="font-bold text-lg mb-3 flex items-center">
+                            <i class="fas fa-exclamation-triangle gold-accent mr-2"></i>
+                            Importante
+                        </h4>
+                        <p class="text-sm text-gray-700">
                             <strong>NÃO EMPRESARIAMOS</strong> ou somos representantes exclusivos de artistas. 
                             Nossa expertise consiste em sugerir artistas de acordo com o perfil/espaço e orçamento disponível, 
                             intermediar negociações garantindo condições satisfatórias para ambas as partes.
@@ -411,12 +820,18 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&h=1000&fit=crop" 
-                         alt="Luizinho Silveira" 
-                         class="rounded-lg shadow-xl mx-auto max-w-md">
-                    <p class="mt-4 text-lg font-bold">Luizinho Silveira</p>
+                    <div class="relative inline-block">
+                        <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&h=1000&fit=crop" 
+                             alt="Luizinho Silveira" 
+                             class="rounded-2xl shadow-2xl mx-auto max-w-md">
+                        <div class="absolute -bottom-6 -right-6 bg-gradient-gold text-gray-900 p-4 rounded-xl shadow-lg">
+                            <p class="font-bold text-lg">LS</p>
+                            <p class="text-sm">Fundador</p>
+                        </div>
+                    </div>
+                    <p class="mt-8 text-xl font-bold text-gray-800">Luizinho Silveira</p>
                     <p class="text-gray-600">Fundador & Diretor</p>
-                    <p class="mt-2 gold-accent italic">"Transformando paixão em profissão desde 1988"</p>
+                    <p class="mt-3 gold-accent italic">"Transformando paixão em profissão desde 1988"</p>
                 </div>
             </div>
         </div>
@@ -428,45 +843,68 @@
             <h2 class="section-title">Acervo Visual</h2>
             <p class="section-subtitle">Momentos inesquecíveis de shows e bastidores</p>
             
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="grid md:grid-cols-3 gap-8">
                 <!-- Video 1 -->
-                <div class="card">
-                    <div class="aspect-video bg-gray-200 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
-                        <a href="https://www.youtube.com/watch?v=1FrYCA6bLFk" target="_blank" class="text-6xl hover:scale-110 transition-transform">
-                            🎬
-                        </a>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Alceu Valença - "Anunciação"</h3>
-                    <p class="text-gray-600 mb-2">Show memorável produzido pela Luarte Shows</p>
-                    <a href="https://www.youtube.com/watch?v=1FrYCA6bLFk" target="_blank" class="gold-accent font-bold">
-                        Assistir no YouTube →
+                <div class="card video-card">
+                    <a href="https://www.youtube.com/watch?v=1FrYCA6bLFk" target="_blank">
+                        <div class="relative overflow-hidden rounded-xl">
+                            <img src="https://img.youtube.com/vi/1FrYCA6bLFk/maxresdefault.jpg" 
+                                 alt="Alceu Valença" 
+                                 class="video-thumbnail">
+                            <div class="video-play-btn">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mt-4 mb-2">Alceu Valença - "Anunciação"</h3>
+                        <p class="text-gray-600 mb-3">Show memorável produzido pela Luarte Shows</p>
+                        <span class="gold-accent font-bold text-sm">
+                            <i class="fab fa-youtube mr-1"></i> Assistir no YouTube →
+                        </span>
                     </a>
                 </div>
                 
                 <!-- Video 2 -->
-                <div class="card">
-                    <div class="aspect-video bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
-                        <span class="text-6xl">🎬</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Elba Ramalho - "Bananeira"</h3>
-                    <p class="text-gray-600 mb-2">Forró em estado puro</p>
-                    <p class="text-sm">Apresentação icônica da rainha do forró</p>
+                <div class="card video-card">
+                    <a href="https://youtube.com/@luarteshows" target="_blank">
+                        <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-purple-600 to-pink-600">
+                            <div class="video-thumbnail flex items-center justify-center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                <i class="fas fa-music text-6xl text-white"></i>
+                            </div>
+                            <div class="video-play-btn">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mt-4 mb-2">Elba Ramalho - "Bananeira"</h3>
+                        <p class="text-gray-600 mb-3">Forró em estado puro</p>
+                        <span class="gold-accent font-bold text-sm">
+                            <i class="fab fa-youtube mr-1"></i> Assistir no YouTube →
+                        </span>
+                    </a>
                 </div>
                 
                 <!-- Video 3 -->
-                <div class="card">
-                    <div class="aspect-video bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
-                        <span class="text-6xl">🎬</span>
-                    </div>
-                    <h3 class="text-xl font-bold mb-2">Zeca Baleiro - "Proibido da Praça"</h3>
-                    <p class="text-gray-600 mb-2">MPB de qualidade</p>
-                    <p class="text-sm">Show intimista com o mestre das letras</p>
+                <div class="card video-card">
+                    <a href="https://youtube.com/@luarteshows" target="_blank">
+                        <div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-green-600 to-teal-600">
+                            <div class="video-thumbnail flex items-center justify-center" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
+                                <i class="fas fa-microphone-alt text-6xl text-white"></i>
+                            </div>
+                            <div class="video-play-btn">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mt-4 mb-2">Zeca Baleiro - "Proibido da Praça"</h3>
+                        <p class="text-gray-600 mb-3">MPB de qualidade</p>
+                        <span class="gold-accent font-bold text-sm">
+                            <i class="fab fa-youtube mr-1"></i> Assistir no YouTube →
+                        </span>
+                    </a>
                 </div>
             </div>
             
-            <div class="text-center mt-8">
-                <a href="https://youtube.com/@luarteshows" target="_blank" class="btn btn-primary">
-                    Visitar Canal Oficial
+            <div class="text-center mt-12">
+                <a href="https://youtube.com/@luarteshows" target="_blank" class="btn btn-primary btn-large">
+                    <i class="fab fa-youtube mr-2"></i> Visitar Canal Oficial
                 </a>
             </div>
         </div>
@@ -478,106 +916,137 @@
             <h2 class="section-title">Artistas & Parcerias</h2>
             <p class="section-subtitle">Uma trajetória de quase 40 anos ao lado dos maiores nomes</p>
             
-            <div class="grid md:grid-cols-4 gap-4 text-center">
-                <div class="card p-4">
-                    <h3 class="font-bold">Alceu Valença</h3>
-                    <p class="text-gray-600">MPB / Forró</p>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="card p-6 text-center">
+                    <div class="w-20 h-20 bg-gradient-gold rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-guitar text-3xl text-gray-900"></i>
+                    </div>
+                    <h3 class="font-bold text-lg">Alceu Valença</h3>
+                    <p class="text-gray-600 text-sm mt-1">MPB / Forró</p>
                 </div>
-                <div class="card p-4">
-                    <h3 class="font-bold">Elba Ramalho</h3>
-                    <p class="text-gray-600">Forró</p>
+                <div class="card p-6 text-center">
+                    <div class="w-20 h-20 bg-gradient-gold rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-drum text-3xl text-gray-900"></i>
+                    </div>
+                    <h3 class="font-bold text-lg">Elba Ramalho</h3>
+                    <p class="text-gray-600 text-sm mt-1">Forró</p>
                 </div>
-                <div class="card p-4">
-                    <h3 class="font-bold">Zeca Baleiro</h3>
-                    <p class="text-gray-600">MPB</p>
+                <div class="card p-6 text-center">
+                    <div class="w-20 h-20 bg-gradient-gold rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-microphone text-3xl text-gray-900"></i>
+                    </div>
+                    <h3 class="font-bold text-lg">Zeca Baleiro</h3>
+                    <p class="text-gray-600 text-sm mt-1">MPB</p>
                 </div>
-                <div class="card p-4">
-                    <h3 class="font-bold">Marília Mendonça</h3>
-                    <p class="text-gray-600">Sertanejo</p>
+                <div class="card p-6 text-center">
+                    <div class="w-20 h-20 bg-gradient-gold rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-star text-3xl text-gray-900"></i>
+                    </div>
+                    <h3 class="font-bold text-lg">Marília Mendonça</h3>
+                    <p class="text-gray-600 text-sm mt-1">Sertanejo</p>
                 </div>
             </div>
             
-            <div class="text-center mt-8">
-                <a href="#contato" class="btn btn-outline">Ver Lista Completa</a>
+            <div class="text-center mt-12">
+                <a href="#contato" class="btn btn-outline btn-large">
+                    Ver Lista Completa de Artistas
+                </a>
             </div>
         </div>
     </section>
 
     <!-- History Section -->
     <section class="section bg-gray-100" id="historia">
-        <div class="container mx-auto max-w-4xl">
+        <div class="container mx-auto max-w-5xl">
             <h2 class="section-title">Trajetória de Sucesso</h2>
             <p class="section-subtitle">Quatro décadas de excelência</p>
             
+            <!-- Quote Box -->
+            <div class="quote-box">
+                <p class="quote-text">O mundo seria opaco não fossem os palcos</p>
+                <p class="quote-author">— Luizinho Silveira</p>
+            </div>
+            
             <div class="timeline">
                 <div class="timeline-item">
-                    <h3 class="text-xl font-bold gold-accent">1988</h3>
-                    <p><strong>Fundação da Luarte</strong></p>
-                    <p>Luiz Silveira troca o magistério pelo show business, fundando a Luarte Shows.</p>
+                    <div class="timeline-year">1988</div>
+                    <h3 class="text-xl font-bold mb-2">Fundação da Luarte</h3>
+                    <p class="text-gray-700">
+                        Luiz Silveira troca o magistério pelo show business, fundando a Luarte Shows.
+                    </p>
                 </div>
                 
                 <div class="timeline-item">
-                    <h3 class="text-xl font-bold gold-accent">1990s</h3>
-                    <p><strong>Expansão Nacional</strong></p>
-                    <p>Parcerias com Petrobrás (5 anos) e início das grandes produções corporativas.</p>
+                    <div class="timeline-year">1990s</div>
+                    <h3 class="text-xl font-bold mb-2">Expansão Nacional</h3>
+                    <p class="text-gray-700">
+                        Parcerias com Petrobrás (5 anos) e início das grandes produções corporativas.
+                    </p>
                 </div>
                 
                 <div class="timeline-item">
-                    <h3 class="text-xl font-bold gold-accent">2000s</h3>
-                    <p><strong>Consolidação</strong></p>
-                    <p>8 anos com Ancar Ivanhoe e parcerias com grandes shoppings centers do Brasil.</p>
+                    <div class="timeline-year">2000s</div>
+                    <h3 class="text-xl font-bold mb-2">Consolidação</h3>
+                    <p class="text-gray-700">
+                        8 anos com Ancar Ivanhoe e parcerias com grandes shoppings centers do Brasil.
+                    </p>
                 </div>
                 
                 <div class="timeline-item">
-                    <h3 class="text-xl font-bold gold-accent">2024</h3>
-                    <p><strong>Lançamento do Livro</strong></p>
-                    <p>"Descortinando o Show Business" - lançamento editorial com histórias e bastidores.</p>
+                    <div class="timeline-year">2024</div>
+                    <h3 class="text-xl font-bold mb-2">Lançamento do Livro</h3>
+                    <p class="text-gray-700">
+                        "Descortinando o Show Business" - lançamento editorial com histórias e bastidores.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Book Section -->
-    <section class="section bg-gradient-bg text-white" id="livro">
+    <section class="section gradient-bg text-white" id="livro">
         <div class="container mx-auto max-w-6xl">
             <h2 class="section-title text-white">Descortinando o Show Business</h2>
             <p class="section-subtitle text-gray-300">Por Luizinho Silveira</p>
             
-            <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div>
                     <ul class="space-y-4 text-lg">
                         <li class="flex items-center">
-                            <span class="gold-accent mr-2">✓</span>
+                            <i class="fas fa-check-circle gold-accent mr-3 text-xl"></i>
                             Histórico profissional completo
                         </li>
                         <li class="flex items-center">
-                            <span class="gold-accent mr-2">✓</span>
+                            <i class="fas fa-check-circle gold-accent mr-3 text-xl"></i>
                             Dicas do mercado musical
                         </li>
                         <li class="flex items-center">
-                            <span class="gold-accent mr-2">✓</span>
+                            <i class="fas fa-check-circle gold-accent mr-3 text-xl"></i>
                             Histórias de bastidores exclusivas
                         </li>
                         <li class="flex items-center">
-                            <span class="gold-accent mr-2">✓</span>
+                            <i class="fas fa-check-circle gold-accent mr-3 text-xl"></i>
                             Depoimentos de artistas
                         </li>
                     </ul>
                     
                     <div class="flex flex-col md:flex-row gap-4 mt-8">
                         <a href="https://clubedeautores.com.br" target="_blank" class="btn btn-primary text-center">
-                            Clube de Autores
+                            <i class="fas fa-book mr-2"></i> Clube de Autores
                         </a>
                         <a href="https://amazon.com.br" target="_blank" class="btn btn-outline text-center">
-                            Kindle Amazon
+                            <i class="fab fa-amazon mr-2"></i> Kindle Amazon
                         </a>
                     </div>
                 </div>
                 
                 <div class="text-center">
-                    <div class="bg-white text-gray-800 p-8 rounded-lg">
+                    <div class="bg-white text-gray-800 p-8 rounded-2xl shadow-2xl">
+                        <div class="w-32 h-48 bg-gradient-gold mx-auto mb-6 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-book text-6xl text-gray-900"></i>
+                        </div>
                         <h3 class="text-2xl font-bold mb-4">Lançamento 2024</h3>
-                        <p class="mb-4">
+                        <p class="mb-4 text-gray-700">
                             Luiz Silveira compartilha em seu livro toda a sua trajetória de quase quatro décadas 
                             no mercado da música e entretenimento.
                         </p>
@@ -594,21 +1063,36 @@
             <h2 class="section-title">Vamos Conversar?</h2>
             <p class="section-subtitle">Seja qual for o artista do seu interesse, faça uma consulta</p>
             
-            <div class="grid md:grid-cols-2 gap-8">
+            <div class="grid md:grid-cols-2 gap-12">
                 <div>
-                    <div class="mb-6">
-                        <h3 class="text-xl font-bold mb-2">📱 WhatsApp</h3>
-                        <p class="text-lg">(21) 98797-1000</p>
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-3 flex items-center">
+                            <i class="fab fa-whatsapp gold-accent mr-3 text-2xl"></i>
+                            WhatsApp
+                        </h3>
+                        <p class="text-lg text-gray-700">(21) 98797-1000</p>
                     </div>
                     
-                    <div class="mb-6">
-                        <h3 class="text-xl font-bold mb-2">📧 E-mail</h3>
-                        <p class="text-lg">luizdiversaoearte@gmail.com</p>
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-3 flex items-center">
+                            <i class="fas fa-envelope gold-accent mr-3 text-2xl"></i>
+                            E-mail
+                        </h3>
+                        <p class="text-lg text-gray-700">luizdiversaoearte@gmail.com</p>
                     </div>
                     
-                    <div>
-                        <h3 class="text-xl font-bold mb-2">📍 Localização</h3>
-                        <p class="text-lg">Rio de Janeiro, Brasil</p>
+                    <div class="mb-8">
+                        <h3 class="text-xl font-bold mb-3 flex items-center">
+                            <i class="fas fa-map-marker-alt gold-accent mr-3 text-2xl"></i>
+                            Localização
+                        </h3>
+                        <p class="text-lg text-gray-700">Rio de Janeiro, Brasil</p>
+                    </div>
+                    
+                    <div class="bg-gray-100 p-6 rounded-2xl">
+                        <h4 class="font-bold text-lg mb-3">⏰ Horário de Atendimento</h4>
+                        <p class="text-gray-700">Segunda a Sexta: 9h às 18h</p>
+                        <p class="text-gray-700">Resposta em até 2 horas úteis</p>
                     </div>
                 </div>
                 
@@ -619,17 +1103,17 @@
                     </p>
                     
                     <div class="form-group">
-                        <label for="nome">Nome *</label>
-                        <input type="text" id="nome" name="nome" required placeholder="Seu nome">
+                        <label for="nome"><i class="fas fa-user mr-2 gold-accent"></i>Nome *</label>
+                        <input type="text" id="nome" name="nome" required placeholder="Seu nome completo">
                     </div>
                     
                     <div class="form-group">
-                        <label for="email">E-mail *</label>
+                        <label for="email"><i class="fas fa-envelope mr-2 gold-accent"></i>E-mail *</label>
                         <input type="email" id="email" name="email" required placeholder="seu@email.com">
                     </div>
                     
                     <div class="form-group">
-                        <label for="tipo-evento">Tipo de Evento *</label>
+                        <label for="tipo-evento"><i class="fas fa-calendar-alt mr-2 gold-accent"></i>Tipo de Evento *</label>
                         <select id="tipo-evento" name="tipo-evento" required>
                             <option value="">Selecione...</option>
                             <option value="show">Show/Concerto</option>
@@ -641,13 +1125,17 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="mensagem">Mensagem</label>
+                        <label for="mensagem"><i class="fas fa-comment-dots mr-2 gold-accent"></i>Mensagem</label>
                         <textarea id="mensagem" name="mensagem" rows="4" placeholder="Conte mais sobre seu evento..."></textarea>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary w-full">
-                        Enviar Consulta
+                    <button type="submit" class="btn btn-primary w-full btn-large">
+                        <i class="fas fa-paper-plane mr-2"></i> Enviar Consulta
                     </button>
+                    
+                    <p class="text-center text-gray-500 mt-4 text-sm">
+                        <i class="fas fa-lock mr-1"></i> Seus dados estão seguros. Não enviamos spam.
+                    </p>
                 </form>
             </div>
         </div>
@@ -655,29 +1143,62 @@
 
     <!-- Footer -->
     <footer>
-        <div class="container mx-auto">
-            <h3 class="text-2xl font-bold mb-4">LUARTE SHOWS</h3>
-            <p class="mb-4">Produção Artística desde 1988</p>
-            <p class="text-gray-400 mb-4">
-                Rio de Janeiro, Brasil • (21) 98797-1000
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="gold-accent">LUARTE</span> SHOWS
+            </div>
+            <p class="text-gray-400 mb-4">Produção Artística desde 1988</p>
+            <p class="text-gray-400 mb-6">
+                <i class="fas fa-map-marker-alt mr-2"></i> Rio de Janeiro, Brasil 
+                <span class="mx-2">•</span> 
+                <i class="fas fa-phone mr-2"></i> (21) 98797-1000
             </p>
-            <p class="text-gray-400 text-sm">
-                © 2026 Luarte Shows. Todos os direitos reservados.
-            </p>
-            <p class="text-gray-400 text-sm mt-2">
-                Design & Dev: <a href="https://elmodg.com.br" class="gold-accent">ELMO DG</a>
-            </p>
+            
+            <div class="footer-links">
+                <a href="#sobre"><i class="fas fa-info-circle mr-1"></i> Sobre</a>
+                <a href="#artistas"><i class="fas fa-star mr-1"></i> Artistas</a>
+                <a href="#livro"><i class="fas fa-book mr-1"></i> Livro</a>
+                <a href="#contato"><i class="fas fa-envelope mr-1"></i> Contato</a>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-6 mt-6">
+                <p class="text-gray-400 text-sm">
+                    © 2026 Luarte Shows. Todos os direitos reservados.
+                </p>
+                <p class="text-gray-400 text-sm mt-2">
+                    Design & Dev: <a href="https://elmodg.com.br" class="gold-accent">ELMO DG</a>
+                </p>
+            </div>
         </div>
     </footer>
 
     <!-- WhatsApp Float -->
     <a href="https://wa.me/5521987971000" class="whatsapp-float" target="_blank">
-        📱 Fale no WhatsApp
+        <i class="fab fa-whatsapp text-xl"></i>
+        <span>Fale no WhatsApp</span>
     </a>
 
-    <!-- JavaScript para Menu Mobile e Scroll -->
+    <!-- JavaScript -->
     <script>
-        // Menu Mobile Toggle
+        // Loading Screen
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 1500);
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
         function toggleMenu() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('active');
@@ -686,7 +1207,7 @@
             navLinks.classList.toggle('flex-col');
         }
 
-        // Scroll Suave para Links de Âncora
+        // Smooth Scroll for Anchor Links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -698,7 +1219,7 @@
                         block: 'start'
                     });
                     
-                    // Fecha menu mobile após clicar
+                    // Close mobile menu after click
                     const navLinks = document.getElementById('navLinks');
                     if (!navLinks.classList.contains('hidden')) {
                         toggleMenu();
@@ -712,16 +1233,37 @@
         
         // Hero Animation
         gsap.from(".hero-content > *", {
-            duration: 1,
-            y: 50,
+            duration: 1.2,
+            y: 60,
             opacity: 0,
             stagger: 0.2,
-            ease: "power3.out"
+            ease: "power3.out",
+            delay: 1.5
+        });
+        
+        // Stats Counter Animation
+        gsap.utils.toArray('.stat-number').forEach(stat => {
+            const count = stat.getAttribute('data-count');
+            if (count) {
+                gsap.to(stat, {
+                    scrollTrigger: {
+                        trigger: stat,
+                        start: "top 80%",
+                    },
+                    duration: 2,
+                    textContent: count,
+                    snap: { textContent: 1 },
+                    ease: "power2.out",
+                    modifiers: {
+                        textContent: value => Math.floor(value) + (count === "1988" ? "" : "+")
+                    }
+                });
+            }
         });
         
         // Section Animations
         gsap.utils.toArray('.section').forEach(section => {
-            gsap.from(section.querySelectorAll('.card, .timeline-item'), {
+            gsap.from(section.querySelectorAll('.card, .timeline-item, .stat-item'), {
                 scrollTrigger: {
                     trigger: section,
                     start: "top 80%",
@@ -729,27 +1271,21 @@
                 duration: 0.8,
                 y: 50,
                 opacity: 0,
-                stagger: 0.2,
+                stagger: 0.15,
                 ease: "power3.out"
             });
         });
         
-        // Stats Counter Animation
-        gsap.utils.toArray('.stat-number').forEach(stat => {
-            const originalText = stat.textContent;
-            gsap.from(stat, {
-                scrollTrigger: {
-                    trigger: stat,
-                    start: "top 80%",
-                },
-                duration: 2,
-                textContent: 0,
-                snap: { textContent: 1 },
-                ease: "power2.out",
-                onComplete: () => {
-                    stat.textContent = originalText;
-                }
-            });
+        // Form Animation
+        gsap.from(".contact-form", {
+            scrollTrigger: {
+                trigger: ".contact-form",
+                start: "top 80%",
+            },
+            duration: 1,
+            x: 50,
+            opacity: 0,
+            ease: "power3.out"
         });
     </script>
 </body>
