@@ -6,7 +6,7 @@
     <title>LUARTE SHOWS | Produção Artística desde 1988</title>
     <meta name="description" content="Luarte Shows - 40 anos de excelência em produção de shows, agenciamento artístico e intermediação. Luizinho Silveira.">
     
-    <!-- Fonts: Variable Fonts para performance e estilo -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Inter:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- GSAP para animações avançadas -->
+    <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     
@@ -41,25 +41,6 @@
                             900: '#0a0a0f',
                             800: '#12121a',
                             700: '#1a1a25',
-                        },
-                        'neon': {
-                            gold: '#FFD700',
-                            amber: '#FFBF00',
-                        }
-                    },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'shimmer': 'shimmer 2s linear infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        },
-                        shimmer: {
-                            '0%': { backgroundPosition: '-200% 0' },
-                            '100%': { backgroundPosition: '200% 0' },
                         }
                     }
                 }
@@ -68,14 +49,12 @@
     </script>
     
     <style>
-        /* Neo Deco & After-Dark Aesthetic Base */
         body {
             background-color: #0a0a0f;
             color: #e5e5e5;
             overflow-x: hidden;
         }
         
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -87,7 +66,6 @@
             border-radius: 4px;
         }
         
-        /* Noise Texture Overlay */
         .noise-overlay {
             position: fixed;
             top: 0;
@@ -100,7 +78,6 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
         
-        /* Gold Gradient Text */
         .text-gold-gradient {
             background: linear-gradient(135deg, #FFD700 0%, #D4AF37 50%, #B08D1F 100%);
             -webkit-background-clip: text;
@@ -108,19 +85,64 @@
             background-clip: text;
         }
         
-        /* Glassmorphism */
         .glass {
             background: rgba(26, 26, 37, 0.6);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(212, 175, 55, 0.1);
         }
         
-        /* Magnetic Button Effect */
-        .magnetic-btn {
-            transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        .youtube-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: #12121a;
+            border-radius: 12px;
         }
         
-        /* Card Hover Effects */
+        .youtube-container iframe,
+        .youtube-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .youtube-placeholder {
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .youtube-play-btn {
+            width: 80px;
+            height: 80px;
+            background: rgba(212, 175, 55, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        
+        .youtube-play-btn:hover {
+            transform: scale(1.1);
+            background: #FFD700;
+        }
+        
+        .youtube-play-btn svg {
+            width: 30px;
+            height: 30px;
+            fill: #0a0a0f;
+            margin-left: 5px;
+        }
+        
         .artist-card {
             transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         }
@@ -128,12 +150,24 @@
             transform: translateY(-10px) scale(1.02);
         }
         
-        /* Reveal Animation Classes */
-        .reveal-text {
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #0a0a0f;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
         }
         
-        /* Custom Cursor */
+        .loader-line {
+            width: 0%;
+            height: 2px;
+            background: linear-gradient(90deg, #D4AF37, #FFD700);
+            transition: width 0.5s ease;
+        }
+        
         .custom-cursor {
             width: 20px;
             height: 20px;
@@ -156,51 +190,40 @@
             z-index: 9998;
         }
         
-        /* Loading Screen */
-        #loader {
-            position: fixed;
-            inset: 0;
-            background: #0a0a0f;
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
+        .video-card {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.1);
         }
         
-        .loader-line {
-            width: 0%;
-            height: 2px;
-            background: linear-gradient(90deg, #D4AF37, #FFD700);
-            transition: width 0.5s ease;
+        .elegant-badge {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05));
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(10px);
         }
         
-        /* Video Container Aspect Ratio */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
+        .footer-credit {
+            transition: all 0.3s ease;
         }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        .footer-credit:hover {
+            color: #D4AF37;
+        }
+        
+        .important-note {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+            border-left: 3px solid #D4AF37;
         }
     </style>
+<base target="_blank">
 </head>
 <body class="font-body antialiased selection:bg-gold-500 selection:text-midnight-900">
 
-    <!-- Noise Texture -->
     <div class="noise-overlay"></div>
-    
-    <!-- Custom Cursor -->
     <div class="custom-cursor hidden md:block" id="cursor"></div>
     <div class="cursor-dot hidden md:block" id="cursor-dot"></div>
     
-    <!-- Loader -->
     <div id="loader">
         <h1 class="font-display text-4xl md:text-6xl text-gold-gradient mb-4 tracking-widest">LUARTE</h1>
         <div class="w-48 h-0.5 bg-midnight-700 rounded-full overflow-hidden">
@@ -209,24 +232,20 @@
         <p class="mt-4 text-gray-500 text-sm tracking-widest uppercase">Carregando Experiência</p>
     </div>
 
-    <!-- Navigation -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 opacity-0 -translate-y-full">
         <div class="glass mx-4 mt-4 rounded-full px-6 py-4 max-w-7xl mx-auto">
             <div class="flex justify-between items-center">
                 <a href="#hero" class="font-display text-2xl font-bold text-gold-gradient tracking-wider">
                     LUARTE<span class="text-white text-sm align-top">®</span>
                 </a>
-                
                 <div class="hidden md:flex items-center gap-8">
-                    <a href="#sobre" class="text-sm uppercase tracking-widest hover:text-gold-400 transition-colors magnetic-btn">Sobre</a>
-                    <a href="#artistas" class="text-sm uppercase tracking-widest hover:text-gold-400 transition-colors magnetic-btn">Artistas</a>
-                    <a href="#historia" class="text-sm uppercase tracking-widest hover:text-gold-400 transition-colors magnetic-btn">História</a>
-                    <a href="#livro" class="text-sm uppercase tracking-widest hover:text-gold-400 transition-colors magnetic-btn">Livro</a>
-                    <a href="#contato" class="px-6 py-2 border border-gold-500 text-gold-400 rounded-full text-sm uppercase tracking-widest hover:bg-gold-500 hover:text-midnight-900 transition-all magnetic-btn">
-                        Contato
-                    </a>
+                    <a href="#sobre" class="text-sm uppercase tracking-widest hover:text-gold-400 transition-colors">Sobre</a>
+                    <a href="#videos" class="text-sm uppercase tracking-widest hover:text-gold-400 transition-colors">Vídeos</a>
+                    <a href="#artistas" class="text-sm uppercase tracking-widest hover:text-gold-400 transition-colors">Artistas</a>
+                    <a href="#historia" class="text-sm uppercase tracking-widest hover:text-gold-400 transition-colors">História</a>
+                    <a href="#livro" class="text-sm uppercase tracking-widest hover:text-gold-400 transition-colors">Livro</a>
+                    <a href="#contato" class="px-6 py-2 border border-gold-500 text-gold-400 rounded-full text-sm uppercase tracking-widest hover:bg-gold-500 hover:text-midnight-900 transition-all">Contato</a>
                 </div>
-                
                 <button id="mobile-menu-btn" class="md:hidden text-gold-400">
                     <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
@@ -234,9 +253,9 @@
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
     <div id="mobile-menu" class="fixed inset-0 bg-midnight-900/95 backdrop-blur-xl z-40 hidden flex-col items-center justify-center gap-8">
         <a href="#sobre" class="text-2xl font-display text-gold-gradient mobile-link">Sobre</a>
+        <a href="#videos" class="text-2xl font-display text-gold-gradient mobile-link">Vídeos</a>
         <a href="#artistas" class="text-2xl font-display text-gold-gradient mobile-link">Artistas</a>
         <a href="#historia" class="text-2xl font-display text-gold-gradient mobile-link">História</a>
         <a href="#livro" class="text-2xl font-display text-gold-gradient mobile-link">Livro</a>
@@ -248,43 +267,38 @@
 
     <!-- Hero Section -->
     <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <!-- Background Elements -->
         <div class="absolute inset-0 bg-gradient-to-b from-midnight-900 via-midnight-800 to-midnight-900"></div>
-        
-        <!-- Animated Background Shapes -->
         <div class="absolute inset-0 overflow-hidden">
-            <div class="absolute top-20 left-10 w-72 h-72 bg-gold-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
-            <div class="absolute bottom-20 right-10 w-96 h-96 bg-gold-600/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+            <div class="absolute top-20 left-10 w-72 h-72 bg-gold-500/10 rounded-full blur-3xl animate-pulse"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-gold-600/10 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
         </div>
-        
-        <!-- Grid Pattern -->
         <div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(rgba(212, 175, 55, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 175, 55, 0.1) 1px, transparent 1px); background-size: 50px 50px;"></div>
         
         <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
             <div class="hero-content opacity-0 translate-y-10">
-                <p class="text-gold-400 text-sm md:text-base uppercase tracking-[0.3em] mb-4 font-medium">
-                    Produção Artística & Agenciamento
-                </p>
+                <p class="text-gold-400 text-sm md:text-base uppercase tracking-[0.3em] mb-4 font-medium">Produção Artística & Agenciamento</p>
                 <h1 class="font-display text-5xl md:text-8xl lg:text-9xl font-bold text-white mb-6 leading-tight">
                     LUARTE<br>
                     <span class="text-gold-gradient">SHOWS</span>
                 </h1>
                 <div class="w-24 h-1 bg-gradient-to-r from-transparent via-gold-400 to-transparent mx-auto mb-8"></div>
-                <p class="font-accent text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto mb-12 italic">
-                    "Quase 40 anos transformando talentos em experiências inesquecíveis"
+                <p class="font-accent text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-12 italic">
+                    "O mundo seria opaco não fossem os palcos" – Luizinho Silveira
                 </p>
                 <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
-                    <a href="#artistas" class="group relative px-8 py-4 bg-gold-500 text-midnight-900 font-bold uppercase tracking-wider overflow-hidden rounded-full magnetic-btn">
-                        <span class="relative z-10">Ver Artistas</span>
+                    <a href="#videos" class="group relative px-8 py-4 bg-gold-500 text-midnight-900 font-bold uppercase tracking-wider overflow-hidden rounded-full">
+                        <span class="relative z-10 flex items-center gap-2">
+                            <i data-lucide="play" class="w-5 h-5"></i>
+                            Assistir Vídeos
+                        </span>
                         <div class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
                     </a>
-                    <a href="#contato" class="px-8 py-4 border border-gold-500/50 text-gold-400 font-bold uppercase tracking-wider rounded-full hover:border-gold-400 hover:bg-gold-500/10 transition-all magnetic-btn">
+                    <a href="#contato" class="px-8 py-4 border border-gold-500/50 text-gold-400 font-bold uppercase tracking-wider rounded-full hover:border-gold-400 hover:bg-gold-500/10 transition-all">
                         Fale Conosco
                     </a>
                 </div>
             </div>
             
-            <!-- Floating Stats -->
             <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto opacity-0" id="stats">
                 <div class="text-center">
                     <div class="font-display text-4xl md:text-5xl text-gold-gradient font-bold counter" data-target="40">0</div>
@@ -305,7 +319,6 @@
             </div>
         </div>
         
-        <!-- Scroll Indicator -->
         <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
             <i data-lucide="chevron-down" class="w-6 h-6 text-gold-400"></i>
         </div>
@@ -317,58 +330,228 @@
             <div class="grid md:grid-cols-2 gap-16 items-center">
                 <div class="reveal-left">
                     <h2 class="font-display text-4xl md:text-6xl font-bold mb-6">
-                        A <span class="text-gold-gradient">Tradição</span><br>
-                        do Show Business
+                        A <span class="text-gold-gradient">Tradição</span><br>do Show Business
                     </h2>
                     <div class="w-20 h-1 bg-gold-500 mb-8"></div>
                     <div class="space-y-6 text-gray-300 text-lg leading-relaxed font-accent">
-                        <p>
-                            Desde 1988, a <strong class="text-gold-400">Luarte Shows</strong>, sob a direção de Luiz Silveira (Luizinho Silveira), 
-                            é referência em produção de shows, agenciamento artístico e intermediação entre contratantes e artistas.
-                        </p>
-                        <p>
-                            Nossa expertise facilita negociações complexas, sugerindo artistas de acordo com o perfil, espaço, 
-                            evento e budget disponível. Executamos produções completas, cuidando de toda infraestrutura necessária.
-                        </p>
-                        <p>
-                            Atendemos desde pequenos bares e casas de espetáculos até grandes corporações como 
-                            <span class="text-gold-400">Petrobrás</span>, <span class="text-gold-400">Ancar Ivanhoe</span>, 
-                            <span class="text-gold-400">FIRJAN-SESI</span>, <span class="text-gold-400">Paulo Octávio Empreendimentos</span>, 
-                            entre outras.
+                        <p>Desde 1988, a <strong class="text-gold-400">Luarte Shows</strong> tem sido mais do que apenas uma produtora de eventos. Somos arquitetos de experiências, construindo memórias inesquecíveis, compartilhadas em cada trabalho que realizamos.</p>
+                        
+                        <p>Atendemos desde pequenos bares e casas de espetáculos até grandes corporações, sempre buscando adequações pertinentes ao perfil, espaço e orçamento disponível.</p>
+                    </div>
+                    
+                    <div class="mt-8 space-y-4">
+                        <h4 class="font-display text-lg font-bold text-gold-400 uppercase tracking-wider">Principais Clientes</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div class="flex items-center justify-between p-3 glass rounded-lg">
+                                <span class="text-white font-medium">PETROBRÁS</span>
+                                <span class="text-gold-400 text-sm">5 anos</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 glass rounded-lg">
+                                <span class="text-white font-medium">ANCAR IVANHOE</span>
+                                <span class="text-gold-400 text-sm">8 anos</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 glass rounded-lg">
+                                <span class="text-white font-medium">FIRJAN-SESI RJ</span>
+                                <span class="text-gold-400 text-sm">5 anos</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 glass rounded-lg">
+                                <span class="text-white font-medium text-sm">PAULO OCTÁVIO (DF)</span>
+                                <span class="text-gold-400 text-sm">6 anos</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mt-4">
+                            Também trabalhos esporádicos para: Coca-Cola do Brasil, Secretarias de Cultura (RJ, Natal, Fortaleza, Salvador), Governo do DF, Administrações Regionais (DF), SINDJUS (DF), SESC, entre outras.
                         </p>
                     </div>
                     
-                    <div class="mt-8 flex items-center gap-4">
-                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-midnight-900 font-bold text-2xl font-display">
-                            LS
+                    <div class="mt-8 important-note p-6 rounded-xl">
+                        <div class="flex items-start gap-3">
+                            <i data-lucide="info" class="w-5 h-5 text-gold-400 flex-shrink-0 mt-1"></i>
+                            <div>
+                                <p class="text-gold-400 font-bold text-sm uppercase tracking-wider mb-2">Importante</p>
+                                <p class="text-gray-300 text-sm leading-relaxed">
+                                    <strong>NÃO EMPRESARIAMOS OU SOMOS REPRESENTANTES EXCLUSIVOS DE ARTISTAS.</strong> Nossa expertise consiste em sugerir artistas de acordo com o perfil/espaço e orçamento disponível, intermediar negociações garantindo condições satisfatórias para ambas as partes. Também oferecemos know-how para cuidar de toda a infraestrutura necessária à realização de um eficiente trabalho de produção. Luiz Silveira atua como produtor executivo/tour manager freelancer, mediante consulta prévia.
+                                </p>
+                            </div>
                         </div>
+                    </div>
+                    
+                    <div class="mt-8 flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center text-midnight-900 font-bold text-2xl font-display">LS</div>
                         <div>
                             <div class="font-bold text-white text-lg">Luizinho Silveira</div>
                             <div class="text-gold-400 text-sm uppercase tracking-wider">Fundador & Diretor</div>
                         </div>
                     </div>
                 </div>
-                
                 <div class="relative reveal-right">
                     <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl shadow-gold-500/20">
-                        <img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=800&h=1000&fit=crop" 
-                             alt="Produção de Shows" 
-                             class="w-full h-auto object-cover transform hover:scale-110 transition-transform duration-700">
+                        <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&h=1000&fit=crop" alt="Produção de Shows" class="w-full h-auto object-cover transform hover:scale-110 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-midnight-900/80 to-transparent"></div>
                         <div class="absolute bottom-6 left-6 right-6">
                             <p class="text-white font-accent italic text-lg">"Transformando paixão em profissão desde 1988"</p>
                         </div>
                     </div>
-                    <!-- Decorative Elements -->
                     <div class="absolute -top-4 -right-4 w-full h-full border-2 border-gold-500/30 rounded-2xl -z-10"></div>
-                    <div class="absolute -bottom-4 -left-4 w-24 h-24 bg-gold-500/10 rounded-full blur-2xl"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEOS SECTION - DESCRIÇÕES CORRIGIDAS -->
+    <section id="videos" class="py-32 relative bg-midnight-800/30">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 reveal-text">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full elegant-badge mb-6">
+                    <i data-lucide="film" class="w-4 h-4 text-gold-400"></i>
+                    <span class="text-gold-400 text-sm uppercase tracking-wider">Acervo Visual</span>
+                </div>
+                <h2 class="font-display text-4xl md:text-6xl font-bold mb-4">
+                    <span class="text-gold-gradient">Momentos</span> Inesquecíveis
+                </h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto font-accent italic">
+                    Registros especiais de shows, bastidores e encontros que marcaram nossa história
+                </p>
+            </div>
+
+            <!-- VÍDEO 1 - ZECA BALEIRO (DESTAQUE) -->
+            <div class="mb-12 reveal-text">
+                <div class="glass rounded-2xl p-2 md:p-4 video-card">
+                    <div class="flex items-center justify-between mb-4 px-2">
+                        <div>
+                            <h3 class="font-display text-xl md:text-2xl font-bold text-white flex items-center gap-3">
+                                <i data-lucide="star" class="w-6 h-6 text-gold-400"></i>
+                                Destaque: Zeca Baleiro - "Proibido da Praça"
+                            </h3>
+                            <p class="text-gray-400 text-sm mt-1 ml-9">MPB de qualidade com o mestre das letras maranhenses</p>
+                        </div>
+                        <div class="hidden md:flex items-center gap-2 text-xs text-red-400 bg-red-400/10 px-3 py-1 rounded-full">
+                            <i data-lucide="youtube" class="w-3 h-3"></i>
+                            <span>YouTube</span>
+                        </div>
+                    </div>
+                    <div class="youtube-container" id="featured-video" data-video="1FrYCA6bLFk">
+                        <div class="youtube-placeholder" 
+                             style="background-image: url('https://img.youtube.com/vi/1FrYCA6bLFk/maxresdefault.jpg');"
+                             onclick="loadYouTubeVideo('featured-video', '1FrYCA6bLFk', true)">
+                            <div class="absolute inset-0 bg-gradient-to-t from-midnight-900/60 to-transparent"></div>
+                            <div class="youtube-play-btn relative z-10">
+                                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                            <div class="absolute bottom-4 left-4 right-4 z-10">
+                                <div class="flex items-center gap-2 text-white/80 text-sm">
+                                    <i data-lucide="play-circle" class="w-4 h-4"></i>
+                                    <span>Clique para assistir no YouTube</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 px-2 flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex items-center gap-4 text-sm text-gray-500">
+                            <span class="flex items-center gap-1">
+                                <i data-lucide="user" class="w-4 h-4"></i>
+                                Zeca Baleiro
+                            </span>
+                            <span class="flex items-center gap-1">
+                                <i data-lucide="music" class="w-4 h-4"></i>
+                                MPB
+                            </span>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=1FrYCA6bLFk" target="_blank" 
+                           class="text-gold-400 hover:text-white text-sm flex items-center gap-1 transition-colors">
+                            <span>Abrir no YouTube</span>
+                            <i data-lucide="external-link" class="w-3 h-3"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VÍDEOS 2 E 3 - GRID -->
+            <div class="grid md:grid-cols-2 gap-8" id="video-grid">
+                
+                <!-- VÍDEO 2 - PAULINHO MOSKA -->
+                <div class="video-card glass rounded-2xl p-4 reveal-text">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-full bg-gold-500/20 flex items-center justify-center">
+                            <i data-lucide="mic-2" class="w-5 h-5 text-gold-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-lg font-bold text-white">Paulinho Moska - Ao Vivo</h3>
+                            <p class="text-gray-400 text-xs">MPB contemporânea</p>
+                        </div>
+                    </div>
+                    <div class="youtube-container rounded-lg" id="video-2" data-video="XB8wuKp552s">
+                        <div class="youtube-placeholder" 
+                             style="background-image: url('https://img.youtube.com/vi/XB8wuKp552s/maxresdefault.jpg');"
+                             onclick="loadYouTubeVideo('video-2', 'XB8wuKp552s', true)">
+                            <div class="absolute inset-0 bg-gradient-to-t from-midnight-900/60 to-transparent"></div>
+                            <div class="youtube-play-btn relative z-10 w-16 h-16">
+                                <svg viewBox="0 0 24 24" class="w-6 h-6"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between">
+                        <p class="text-gray-500 text-xs line-clamp-2">
+                            Show intimista com Paulinho Moska, destacando a versatilidade da produção Luarte em diferentes estilos musicais.
+                        </p>
+                        <a href="https://www.youtube.com/watch?v=XB8wuKp552s" target="_blank" 
+                           class="text-gold-400 hover:text-white transition-colors ml-2">
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- VÍDEO 3 - JERRY ADRIANI -->
+                <div class="video-card glass rounded-2xl p-4 reveal-text">
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-10 h-10 rounded-full bg-gold-500/20 flex items-center justify-center">
+                            <i data-lucide="heart" class="w-5 h-5 text-gold-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-display text-lg font-bold text-white">Jerry Adriani - In Memoriam</h3>
+                            <p class="text-gray-400 text-xs">Jovem Guarda e legado</p>
+                        </div>
+                    </div>
+                    <div class="youtube-container rounded-lg" id="video-3" data-video="lfWy7loK0ww">
+                        <div class="youtube-placeholder" 
+                             style="background-image: url('https://img.youtube.com/vi/lfWy7loK0ww/maxresdefault.jpg');"
+                             onclick="loadYouTubeVideo('video-3', 'lfWy7loK0ww', true)">
+                            <div class="absolute inset-0 bg-gradient-to-t from-midnight-900/60 to-transparent"></div>
+                            <div class="youtube-play-btn relative z-10 w-16 h-16">
+                                <svg viewBox="0 0 24 24" class="w-6 h-6"><path d="M8 5v14l11-7z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between">
+                        <p class="text-gray-500 text-xs line-clamp-2">
+                            Homenagem ao eterno Jerry Adriani, um dos grandes nomes da Jovem Guarda que tivemos a honra de trabalhar.
+                        </p>
+                        <a href="https://www.youtube.com/watch?v=lfWy7loK0ww" target="_blank" 
+                           class="text-gold-400 hover:text-white transition-colors ml-2">
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mt-16 text-center reveal-text">
+                <div class="inline-flex flex-col items-center gap-4">
+                    <p class="text-gray-500 text-sm max-w-md">
+                        Todos os vídeos são hospedados no YouTube. Nenhum arquivo de vídeo é armazenado em nossos servidores.
+                    </p>
+                    <a href="https://youtube.com/@luarteshows" target="_blank" 
+                       class="inline-flex items-center gap-3 px-8 py-4 bg-red-600 hover:bg-red-700 text-white rounded-full font-bold transition-all transform hover:-translate-y-1 shadow-lg shadow-red-600/20">
+                        <i data-lucide="youtube" class="w-6 h-6"></i>
+                        Visitar Canal Oficial
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Artists Section -->
-    <section id="artistas" class="py-32 relative bg-midnight-800/50">
+    <section id="artistas" class="py-32 relative">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-20 reveal-text">
                 <h2 class="font-display text-4xl md:text-6xl font-bold mb-4">
@@ -378,15 +561,9 @@
                     Uma trajetória de quase 40 anos ao lado dos maiores nomes da música brasileira
                 </p>
             </div>
-            
-            <!-- Artists Grid -->
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="artists-grid">
-                <!-- Artists will be populated by JavaScript -->
-            </div>
-            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="artists-grid"></div>
             <div class="mt-12 text-center">
-                <p class="text-gray-500 text-sm mb-4">E muitos outros...</p>
-                <button onclick="showAllArtists()" class="text-gold-400 border-b border-gold-400/50 hover:border-gold-400 pb-1 transition-colors">
+                <button onclick="showAllArtists()" class="px-8 py-3 border border-gold-500 text-gold-400 rounded-full hover:bg-gold-500 hover:text-midnight-900 transition-all uppercase tracking-wider text-sm font-bold">
                     Ver Lista Completa
                 </button>
             </div>
@@ -394,70 +571,14 @@
     </section>
 
     <!-- History Timeline -->
-    <section id="historia" class="py-32 relative overflow-hidden">
+    <section id="historia" class="py-32 relative overflow-hidden bg-midnight-800/20">
         <div class="max-w-5xl mx-auto px-6">
             <h2 class="font-display text-4xl md:text-6xl font-bold text-center mb-20">
                 <span class="text-gold-gradient">Trajetória</span> de Sucesso
             </h2>
-            
             <div class="relative">
-                <!-- Timeline Line -->
                 <div class="absolute left-1/2 transform -translate-x-1/2 w-px h-full bg-gradient-to-b from-gold-500/50 via-gold-500 to-gold-500/50"></div>
-                
-                <!-- Timeline Items -->
-                <div class="space-y-20">
-                    <!-- 1988 -->
-                    <div class="relative flex items-center justify-between md:justify-normal md:flex-row-reverse group">
-                        <div class="hidden md:block w-5/12"></div>
-                        <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gold-500 rounded-full border-4 border-midnight-900 z-10 group-hover:scale-150 transition-transform"></div>
-                        <div class="w-full md:w-5/12 pl-8 md:pl-0 md:pr-8 text-left md:text-right">
-                            <div class="glass p-6 rounded-2xl hover:border-gold-500/50 transition-colors">
-                                <span class="text-gold-400 font-display text-2xl font-bold">1988</span>
-                                <h3 class="text-white font-bold text-lg mt-2">Fundação da Luarte</h3>
-                                <p class="text-gray-400 mt-2 text-sm">Luiz Silveira troca o magistério pelo show business, fundando a Luarte Shows.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 1990s -->
-                    <div class="relative flex items-center justify-between group">
-                        <div class="hidden md:block w-5/12"></div>
-                        <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gold-500 rounded-full border-4 border-midnight-900 z-10 group-hover:scale-150 transition-transform"></div>
-                        <div class="w-full md:w-5/12 pl-8 md:pl-8">
-                            <div class="glass p-6 rounded-2xl hover:border-gold-500/50 transition-colors">
-                                <span class="text-gold-400 font-display text-2xl font-bold">1990s</span>
-                                <h3 class="text-white font-bold text-lg mt-2">Expansão Nacional</h3>
-                                <p class="text-gray-400 mt-2 text-sm">Parcerias com Petrobrás (5 anos) e início das grandes produções corporativas.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 2000s -->
-                    <div class="relative flex items-center justify-between md:justify-normal md:flex-row-reverse group">
-                        <div class="hidden md:block w-5/12"></div>
-                        <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gold-500 rounded-full border-4 border-midnight-900 z-10 group-hover:scale-150 transition-transform"></div>
-                        <div class="w-full md:w-5/12 pl-8 md:pl-0 md:pr-8 text-left md:text-right">
-                            <div class="glass p-6 rounded-2xl hover:border-gold-500/50 transition-colors">
-                                <span class="text-gold-400 font-display text-2xl font-bold">2000s</span>
-                                <h3 class="text-white font-bold text-lg mt-2">Consolidação</h3>
-                                <p class="text-gray-400 mt-2 text-sm">8 anos com Ancar Ivanhoe e parcerias com grandes shoppings centers do Brasil.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 2024 -->
-                    <div class="relative flex items-center justify-between group">
-                        <div class="hidden md:block w-5/12"></div>
-                        <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gold-500 rounded-full border-4 border-midnight-900 z-10 group-hover:scale-150 transition-transform animate-pulse"></div>
-                        <div class="w-full md:w-5/12 pl-8 md:pl-8">
-                            <div class="glass p-6 rounded-2xl border-gold-500/30 bg-gold-500/5">
-                                <span class="text-gold-400 font-display text-2xl font-bold">2024</span>
-                                <h3 class="text-white font-bold text-lg mt-2">Lançamento do Livro</h3>
-                                <p class="text-gray-400 mt-2 text-sm">"Descortinando o Show Business" - lançamento editorial com histórias e bastidores.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="space-y-20" id="timeline-container"></div>
             </div>
         </div>
     </section>
@@ -465,6 +586,13 @@
     <!-- Book Section -->
     <section id="livro" class="py-32 relative bg-gradient-to-b from-midnight-800 to-midnight-900">
         <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-12 reveal-text">
+                <p class="font-accent text-2xl md:text-3xl text-gold-400/80 italic">
+                    "O mundo seria opaco não fossem os palcos"
+                </p>
+                <p class="text-gray-500 mt-2">– Luizinho Silveira</p>
+            </div>
+            
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div class="order-2 md:order-1 relative">
                     <div class="relative z-10 transform hover:rotate-2 transition-transform duration-500">
@@ -473,76 +601,37 @@
                                 <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
                                 <h3 class="font-display text-3xl font-bold text-gold-gradient mb-4 relative z-10">DESCORTINANDO O SHOW BUSINESS</h3>
                                 <p class="text-gray-300 mb-4 relative z-10 font-accent italic">Por Luizinho Silveira</p>
+                                <p class="text-gray-400 text-sm mb-4 relative z-10">
+                                    Narra fatos marcantes na trajetória de quase 40 anos no mercado de shows, com dicas valiosas, histórias de bastidores e depoimentos de importantes artistas.
+                                </p>
                                 <div class="w-full h-px bg-gradient-to-r from-transparent via-gold-500/50 to-transparent my-4"></div>
                                 <ul class="space-y-2 text-sm text-gray-400 relative z-10">
-                                    <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-gold-400"></i>
-                                        Histórico profissional completo
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-gold-400"></i>
-                                        Dicas do mercado musical
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-gold-400"></i>
-                                        Histórias de bastidores exclusivas
-                                    </li>
-                                    <li class="flex items-center gap-2">
-                                        <i data-lucide="check" class="w-4 h-4 text-gold-400"></i>
-                                        Depoimentos de artistas
-                                    </li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gold-400"></i>Histórico profissional completo</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gold-400"></i>Dicas do mercado musical</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gold-400"></i>Histórias de bastidores exclusivas</li>
+                                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-gold-400"></i>Depoimentos de artistas</li>
                                 </ul>
                                 <div class="mt-6 flex gap-4 relative z-10">
-                                    <a href="https://clubedeautores.com.br" target="_blank" class="flex-1 bg-gold-500 text-midnight-900 py-3 rounded font-bold text-center hover:bg-gold-400 transition-colors text-sm">
-                                        Clube de Autores
-                                    </a>
-                                    <a href="https://amazon.com.br" target="_blank" class="flex-1 border border-gold-500 text-gold-400 py-3 rounded font-bold text-center hover:bg-gold-500/10 transition-colors text-sm">
-                                        Kindle Amazon
-                                    </a>
+                                    <a href="https://clubedeautores.com.br" target="_blank" class="flex-1 bg-gold-500 text-midnight-900 py-3 rounded font-bold text-center hover:bg-gold-400 transition-colors text-sm">Clube de Autores</a>
+                                    <a href="https://amazon.com.br" target="_blank" class="flex-1 border border-gold-500 text-gold-400 py-3 rounded font-bold text-center hover:bg-gold-500/10 transition-colors text-sm">Kindle Amazon</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Decorative -->
                     <div class="absolute -z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gold-500/10 rounded-full blur-3xl"></div>
                 </div>
-                
                 <div class="order-1 md:order-2">
                     <span class="text-gold-400 text-sm uppercase tracking-widest mb-4 block">Lançamento 2024</span>
-                    <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">
-                        Conheça a História por Dentro
-                    </h2>
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">Conheça a História por Dentro</h2>
                     <p class="text-gray-300 text-lg mb-6 font-accent leading-relaxed">
-                        Luiz Silveira compartilha em seu livro "Descortinando o Show Business" toda a sua trajetória 
-                        de quase quatro décadas no mercado da música e entretenimento.
+                        Luiz Silveira compartilha em seu livro toda a sua trajetória de quase quatro décadas no mercado da música e entretenimento.
                     </p>
-                    <p class="text-gray-400 mb-8">
-                        Com formação universitária e experiência como professor até 1987, Luizinho traz uma 
-                        perspectiva única sobre o show business, combinando conhecimento acadêmico com vivência 
-                        prática nos bastidores dos maiores shows do Brasil.
-                    </p>
-                    <div class="flex items-center gap-4 text-sm text-gray-500">
-                        <i data-lucide="book-open" class="w-5 h-5 text-gold-400"></i>
-                        <span>Disponível em formato físico e E-book</span>
+                    <div class="glass p-6 rounded-xl border-l-4 border-gold-500">
+                        <p class="text-gray-400 text-sm italic">
+                            "Um mergulho fascinante nos bastidores do show business brasileiro, contado por quem viveu cada momento intensamente."
+                        </p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section class="py-20 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 mb-12">
-            <h2 class="font-display text-3xl md:text-4xl font-bold text-center mb-4">
-                <span class="text-gold-gradient">Momentos</span> Especiais
-            </h2>
-            <p class="text-gray-400 text-center">Registros de shows, encontros e bastidores</p>
-        </div>
-        
-        <!-- Marquee Gallery -->
-        <div class="relative">
-            <div class="flex gap-6 animate-marquee whitespace-nowrap" id="gallery-marquee">
-                <!-- Images will be populated by JS -->
             </div>
         </div>
     </section>
@@ -555,14 +644,11 @@
                     <h2 class="font-display text-4xl md:text-5xl font-bold mb-4">
                         Vamos <span class="text-gold-gradient">Conversar</span>?
                     </h2>
-                    <p class="text-gray-400">
-                        Seja qual for o artista do seu interesse, faça uma consulta e buscaremos a melhor maneira de atendê-lo.
-                    </p>
+                    <p class="text-gray-400">Seja qual for o artista do seu interesse, faça uma consulta e buscaremos a melhor maneira de atendê-lo.</p>
                 </div>
                 
                 <div class="grid md:grid-cols-2 gap-8 mb-12">
-                    <a href="https://wa.me/5521987971000" target="_blank" 
-                       class="group flex items-center gap-4 p-6 rounded-2xl bg-midnight-800/50 hover:bg-green-500/10 border border-gray-800 hover:border-green-500/50 transition-all">
+                    <a href="https://wa.me/5521987971000" target="_blank" class="group flex items-center gap-4 p-6 rounded-2xl bg-midnight-800/50 hover:bg-green-500/10 border border-gray-800 hover:border-green-500/50 transition-all">
                         <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                             <i data-lucide="message-circle" class="w-6 h-6 text-green-400"></i>
                         </div>
@@ -571,9 +657,7 @@
                             <div class="text-white font-bold">(21) 98797-1000</div>
                         </div>
                     </a>
-                    
-                    <a href="mailto:luizdiversaoearte@gmail.com" 
-                       class="group flex items-center gap-4 p-6 rounded-2xl bg-midnight-800/50 hover:bg-gold-500/10 border border-gray-800 hover:border-gold-500/50 transition-all">
+                    <a href="mailto:luizdiversaoearte@gmail.com" class="group flex items-center gap-4 p-6 rounded-2xl bg-midnight-800/50 hover:bg-gold-500/10 border border-gray-800 hover:border-gold-500/50 transition-all">
                         <div class="w-12 h-12 rounded-full bg-gold-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
                             <i data-lucide="mail" class="w-6 h-6 text-gold-400"></i>
                         </div>
@@ -588,15 +672,11 @@
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm text-gray-400 mb-2 uppercase tracking-wider">Nome</label>
-                            <input type="text" required 
-                                   class="w-full bg-midnight-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-gold-500 focus:outline-none transition-colors"
-                                   placeholder="Seu nome completo">
+                            <input type="text" required class="w-full bg-midnight-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-gold-500 focus:outline-none transition-colors" placeholder="Seu nome completo">
                         </div>
                         <div>
                             <label class="block text-sm text-gray-400 mb-2 uppercase tracking-wider">E-mail</label>
-                            <input type="email" required 
-                                   class="w-full bg-midnight-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-gold-500 focus:outline-none transition-colors"
-                                   placeholder="seu@email.com">
+                            <input type="email" required class="w-full bg-midnight-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-gold-500 focus:outline-none transition-colors" placeholder="seu@email.com">
                         </div>
                     </div>
                     <div>
@@ -607,17 +687,13 @@
                             <option value="corporativo">Evento Corporativo</option>
                             <option value="privado">Evento Privado</option>
                             <option value="festa">Festa/Confraternização</option>
-                            <option value="outro">Outro</option>
                         </select>
                     </div>
                     <div>
                         <label class="block text-sm text-gray-400 mb-2 uppercase tracking-wider">Mensagem</label>
-                        <textarea rows="4" required
-                                  class="w-full bg-midnight-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-gold-500 focus:outline-none transition-colors resize-none"
-                                  placeholder="Conte-nos sobre seu evento, artista desejado, data e local..."></textarea>
+                        <textarea rows="4" required class="w-full bg-midnight-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-gold-500 focus:outline-none transition-colors resize-none" placeholder="Conte-nos sobre seu evento, artista desejado, data e local..."></textarea>
                     </div>
-                    <button type="submit" 
-                            class="w-full bg-gradient-to-r from-gold-500 to-gold-600 text-midnight-900 font-bold py-4 rounded-lg uppercase tracking-wider hover:shadow-lg hover:shadow-gold-500/25 transition-all transform hover:-translate-y-1">
+                    <button type="submit" class="w-full bg-gradient-to-r from-gold-500 to-gold-600 text-midnight-900 font-bold py-4 rounded-lg uppercase tracking-wider hover:shadow-lg hover:shadow-gold-500/25 transition-all transform hover:-translate-y-1">
                         Enviar Consulta
                     </button>
                 </form>
@@ -633,30 +709,39 @@
                     <h3 class="font-display text-2xl font-bold text-gold-gradient mb-2">LUARTE SHOWS</h3>
                     <p class="text-gray-500 text-sm">Produção Artística desde 1988</p>
                 </div>
-                
                 <div class="flex gap-6">
-                    <a href="#" class="text-gray-400 hover:text-gold-400 transition-colors">
-                        <i data-lucide="instagram" class="w-5 h-5"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-gold-400 transition-colors">
-                        <i data-lucide="facebook" class="w-5 h-5"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-gold-400 transition-colors">
-                        <i data-lucide="youtube" class="w-5 h-5"></i>
-                    </a>
+                    <a href="#" class="text-gray-400 hover:text-gold-400 transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-gold-400 transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    <a href="https://youtube.com/@luarteshows" target="_blank" class="text-gray-400 hover:text-red-500 transition-colors"><i data-lucide="youtube" class="w-5 h-5"></i></a>
                 </div>
-                
-                <div class="text-center md:text-right text-gray-600 text-sm">
-                    <p>&copy; 2026 Luarte Shows. Todos os direitos reservados.</p>
-                    <p class="mt-1">Desenvolvido com expertise para Netlify</p>
+                <div class="text-center md:text-right">
+                    <p class="text-gray-600 text-sm">&copy; 2026 Luarte Shows. Todos os direitos reservados.</p>
+                    <p class="mt-2 text-xs text-gray-700 footer-credit">
+                        Desenvolvido por 
+                        <a href="https://elmodg.com.br" target="_blank" class="hover:text-gold-400 transition-colors underline decoration-gold-500/30 hover:decoration-gold-400">
+                            elmodg.com.br
+                        </a>
+                    </p>
                 </div>
+            </div>
+            
+            <div class="mt-8 pt-6 border-t border-gray-800/50 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-700 text-xs">
+                    Rio de Janeiro, Brasil • (21) 98797-1000
+                </p>
+                <p class="text-gray-700 text-xs footer-credit">
+                    Design & Dev: 
+                    <a href="https://elmodg.com.br" target="_blank" class="text-gray-600 hover:text-gold-400 transition-colors">
+                        ELMO DG
+                    </a>
+                </p>
             </div>
         </div>
     </footer>
 
-    <!-- Modal for Artist Details -->
+    <!-- Modal -->
     <div id="artist-modal" class="fixed inset-0 bg-midnight-900/95 backdrop-blur-xl z-50 hidden items-center justify-center p-4">
-        <div class="glass max-w-2xl w-full rounded-3xl p-8 relative max-h-[90vh] overflow-y-auto">
+        <div class="glass max-w-4xl w-full rounded-3xl p-8 relative max-h-[90vh] overflow-y-auto">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
@@ -665,187 +750,136 @@
     </div>
 
     <script>
-        // Data Persistence - Artists Database
+        // BANCO DE DADOS
         const artistsData = [
             { name: "Alceu Valença", genre: "MPB", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=400&fit=crop" },
             { name: "Elba Ramalho", genre: "Forró/MPB", image: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=400&h=400&fit=crop" },
             { name: "Jorge Ben Jor", genre: "Samba-Rock", image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=400&fit=crop" },
             { name: "Ivete Sangalo", genre: "Axé", image: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&h=400&fit=crop" },
             { name: "Zeca Baleiro", genre: "MPB", image: "https://images.unsplash.com/photo-1459749411177-047381bb3ece?w=400&h=400&fit=crop" },
-            { name: "Ana Carolina", genre: "MPB", image: "https://images.unsplash.com/photo-1516280440614-6697288d5d38?w=400&h=400&fit=crop" },
             { name: "Lenine", genre: "MPB", image: "https://images.unsplash.com/photo-1501612780327-45045538702b?w=400&h=400&fit=crop" },
-            { name: "Moraes Moreira", genre: "MPB", image: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=400&fit=crop" }
+            { name: "Ana Carolina", genre: "MPB/Pop", image: "https://images.unsplash.com/photo-1516280440614-6697288d5d38?w=400&h=400&fit=crop" },
+            { name: "Geraldo Azevedo", genre: "MPB", image: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=400&fit=crop" }
         ];
 
+        // LISTA COMPLETA COM TODOS OS ARTISTAS DO PDF
         const allArtistsList = [
             "Alceu Valença", "Almir Sater", "Amelinha", "Ana Carolina", "Angela Ro Ro", "Azymuth", 
             "Arnaldo Antunes", "Bebeto", "Baby do Brasil", "Belchior", "Belô Velloso", "Beto Guedes", 
             "Bia Bedran", "Boca Livre", "Byafra", "Carlinhos de Jesus", "Carlinhos Vergueiro", 
-            "Celso Blues Boy", "Celso Fonseca", "Chico César", "Cidade Negra", "Cláudia Telles", 
-            "Cláudio Lins", "Claudio Nucci", "Claudio Zoli", "Dalto", "Daniel Azulay", "Daúde", 
-            "Davi Moraes", "Dicró", "Diogo Nogueira", "Dudu Nobre", "Dulce Quental", "Ed Motta", 
-            "Ednardo", "Eduardo Dussek", "Elba Ramalho", "Elza Soares", "Emanuelle Araújo", 
-            "Erasmo Carlos", "Evaldo Gouveia", "Fátima Guedes", "Fevers", "Flavio Venturini", 
-            "Francis Hime", "Frank Aguiar", "Guilherme Arantes", "George Israel", "Geraldo Azevedo", 
-            "Golden Boys", "Guinga", "Heloísa Perissé", "Ingrid Guimarães", "Isabella Taviani", 
-            "Ivan Lins", "Ivete Sangalo", "Jards Macalé", "Jerry Adriani", "João Bosco", 
-            "João Nogueira", "Jorge Benjor", "Jorge Mautner", "Jorge Vercillo", "Joyce", 
-            "Kay Lyra", "Kelly Key", "Kleiton & Kledir", "Lan Lan", "Latino", "Leila Pinheiro", 
-            "Lenine", "Leoni", "Léo Gandelman", "Léo Jaime", "Léo Maia", "Lô Borges", "Luiz Melodia", 
-            "Marcelo", "Marcio Montarroyos", "Marcos Ariel", "Marcos Valle", "Mauro Senise", 
-            "Milton Guedes", "Moraes Moreira", "Moska", "Nando Reis", "Nico Rezende", 
-            "Oswaldo Montenegro", "Paulinho Pedra Azul", "Paulo Moura", "Pedro Mariano", 
-            "Pena Branca e Xavantinho", "Pepeu Gomes", "Peninha", "Preta Gil", "14 Bis", 
-            "Renato Teixeira", "Rita Ribeiro", "Rodrigo Santos", "Rogê", "Rosana", "Roupa Nova", 
-            "Sá & Guarabyra", "Sabrina Sato", "Sandra de Sá", "Selma Reis", "Sergio Sampaio", 
-            "Serginho Meriti", "Simone Guimarães", "Tânia Alves", "Tavinho Bonfá", "Tom Zé", 
-            "Toninho Horta", "Tunai", "Vander Lee", "Zé Ramalho", "Zé Renato", "Zezé Motta"
+            "Carlos Colla", "Celebrare", "Celso Blues Boy", "Celso Fonseca", "Chico César", 
+            "Cidade Negra", "Cláudia Telles", "Cláudio Lins", "Claudio Nucci", "Claudio Zoli", 
+            "Dalto", "Daniel Azulay", "Daniela Spielmann", "Danilo Caymmi", "Daúde", "Davi Moraes", 
+            "Derico", "Dicró", "Diogo Nogueira", "Dora Vergueiro", "Dorina", "Dudu Nobre", 
+            "Dulce Quental", "Ed Motta", "Ednardo", "Eduardo Dussek", "Elba Ramalho", "Eliana Pitman", 
+            "Eliana Printes", "Elza Soares", "Emanuelle Araújo", "Erasmo Carlos", "Evaldo Gouveia", 
+            "Fátima Guedes", "Fevers", "Flavio Guimarães", "Flavio Venturini", "Francis Hime", 
+            "Frank Aguiar", "Guilherme Arantes", "George Israel", "Geraldo Azevedo", "Golden Boys", 
+            "Guinga", "Heloísa Perissé", "Ingrid Guimarães", "Isabella Taviani", "Ivan Lins", 
+            "Ivete Sangalo", "Jards Macalé", "Jerry Adriani", "João Bosco", "João Nogueira", 
+            "Jorge Benjor", "Jorge Mautner", "Jorge Vercillo", "Joyce", "Kay Lyra", "Kelly Key", 
+            "Kleiton & Kledir", "Lan Lan", "Latino", "Leila Pinheiro", "Lenine", "Leoni", 
+            "Léo Gandelman", "Léo Jaime", "Léo Maia", "Lô Borges", "Luiz Melodia", "Marcelo", 
+            "Marcio Montarroyos", "Marcos Ariel", "Marcel Baden Powell", "Marcos Sabino", 
+            "Marcos Valle", "Marvio Ciribelli", "Mauro Senise", "Mielle", "Milton Guedes", 
+            "Moinho da Bahia", "Moraes Moreira", "Moska", "Ná Ozetti", "Nando Reis", "Nico Rezende", 
+            "Nilze Carvalho", "Orquestra Tabajara", "Oswaldo Montenegro", "Paulinho Pedra Azul", 
+            "Paulinho Trompete", "Paulo Moura", "Pedro Mariano", "Pena Branca e Xavantinho", 
+            "Pepeu Gomes", "Peninha", "Preta Gil", "14 Bis", "Renata Arruda", "Renato e Seus Blue Caps", 
+            "Renato Teixeira", "Rita Ribeiro (Rita Benneditto)", "Rodrigo Santos", "Rogê", "Rosana", 
+            "Roupa Nova", "Sá & Guarabyra", "Sabrina Sato", "Sandra de Sá", "Selma Reis", 
+            "Sergio Sampaio", "Serginho Meriti", "Simone Guimarães", "Tânia Alves", "Tavinho Bonfá", 
+            "Tom Zé", "Toninho Horta", "Toni Platão", "Trio Calafrio (Marcos Diniz, Luiz Grande e Barbeirinho)", 
+            "Trio Irakitan", "Trio Pé de Serra", "Tunai", "Vander Lee", "Verônica Sabino", 
+            "Victor Biglione", "Vinicius Cantuária", "Wanderley Cardoso", "Zé Alexandre", 
+            "Zeca Baleiro", "Zélia Duncan", "Zé Ramalho", "Zé Renato", "Zezé Motta"
         ];
 
-        // Gallery Images
-        const galleryImages = [
-            "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&h=400&fit=crop",
-            "https://images.unsplash.com/photo-1459749411177-047381bb3ece?w=600&h=400&fit=crop",
-            "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=600&h=400&fit=crop",
-            "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&h=400&fit=crop",
-            "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=600&h=400&fit=crop",
-            "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&h=400&fit=crop"
+        const historyData = [
+            { year: 1988, title: "Fundação da Luarte Shows", description: "Luiz Silveira deixa o magistério e funda a empresa", highlight: true },
+            { year: 1990, title: "Parceria Petrobrás", description: "Contrato de 5 anos com a Petrobrás", client: "Petrobrás" },
+            { year: 1998, title: "Ancar Ivanhoe", description: "8 anos de parceria com shoppings centers", client: "Ancar Ivanhoe" },
+            { year: 2005, title: "FIRJAN-SESI", description: "5 anos de eventos culturais no RJ", client: "FIRJAN-SESI" },
+            { year: 2008, title: "Paulo Octávio", description: "6 anos de produções no DF", client: "Paulo Octávio Empreendimentos" },
+            { year: 2024, title: "Lançamento do Livro", description: "'Descortinando o Show Business'", highlight: true }
         ];
 
-        // Initialize Lucide Icons
+        function loadYouTubeVideo(containerId, videoId, autoplay = false) {
+            const container = document.getElementById(containerId);
+            const autoplayParam = autoplay ? '1' : '0';
+            
+            container.innerHTML = `
+                <iframe 
+                    src="https://www.youtube.com/embed/${videoId}?autoplay=${autoplayParam}&rel=0&modestbranding=1" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            `;
+        }
+
         lucide.createIcons();
 
-        // Loader Animation
         window.addEventListener('load', () => {
             const loaderLine = document.getElementById('loader-line');
             const loader = document.getElementById('loader');
             
-            setTimeout(() => {
-                loaderLine.style.width = '100%';
-            }, 100);
+            setTimeout(() => { loaderLine.style.width = '100%'; }, 100);
             
             setTimeout(() => {
                 gsap.to(loader, {
                     opacity: 0,
                     duration: 0.8,
                     onComplete: () => {
-                        loader.style.display = 'none';
+                        loader.classList.add('hidden');
                         initAnimations();
                     }
                 });
             }, 1500);
         });
 
-        // Initialize All Animations
         function initAnimations() {
-            // Navbar Animation
-            gsap.to('#navbar', {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: "power3.out"
-            });
+            gsap.to('#navbar', { opacity: 1, y: 0, duration: 1, ease: "power3.out" });
+            gsap.to('.hero-content', { opacity: 1, y: 0, duration: 1.2, delay: 0.2, ease: "power3.out" });
+            gsap.to('#stats', { opacity: 1, duration: 1, delay: 0.8, onComplete: animateCounters });
             
-            // Hero Content
-            gsap.to('.hero-content', {
-                opacity: 1,
-                y: 0,
-                duration: 1.2,
-                delay: 0.2,
-                ease: "power3.out"
-            });
-            
-            // Stats Counter Animation
-            gsap.to('#stats', {
-                opacity: 1,
-                duration: 1,
-                delay: 0.8,
-                onComplete: animateCounters
-            });
-            
-            // Scroll Triggers
             gsap.registerPlugin(ScrollTrigger);
             
-            // Reveal Animations
-            gsap.utils.toArray('.reveal-left').forEach(element => {
-                gsap.from(element, {
-                    scrollTrigger: {
-                        trigger: element,
-                        start: "top 80%",
-                        toggleActions: "play none none reverse"
-                    },
-                    x: -50,
-                    opacity: 0,
-                    duration: 1,
-                    ease: "power3.out"
-                });
+            gsap.utils.toArray('.reveal-left').forEach(el => {
+                gsap.from(el, { scrollTrigger: { trigger: el, start: "top 80%" }, x: -50, opacity: 0, duration: 1 });
             });
             
-            gsap.utils.toArray('.reveal-right').forEach(element => {
-                gsap.from(element, {
-                    scrollTrigger: {
-                        trigger: element,
-                        start: "top 80%",
-                        toggleActions: "play none none reverse"
-                    },
-                    x: 50,
-                    opacity: 0,
-                    duration: 1,
-                    ease: "power3.out"
-                });
+            gsap.utils.toArray('.reveal-right').forEach(el => {
+                gsap.from(el, { scrollTrigger: { trigger: el, start: "top 80%" }, x: 50, opacity: 0, duration: 1 });
             });
             
-            gsap.utils.toArray('.reveal-text').forEach(element => {
-                gsap.from(element, {
-                    scrollTrigger: {
-                        trigger: element,
-                        start: "top 85%",
-                        toggleActions: "play none none reverse"
-                    },
-                    y: 30,
-                    opacity: 0,
-                    duration: 1,
-                    ease: "power3.out"
-                });
+            gsap.utils.toArray('.reveal-text').forEach(el => {
+                gsap.from(el, { scrollTrigger: { trigger: el, start: "top 85%" }, y: 30, opacity: 0, duration: 1 });
             });
-            
-            // Populate Artists
+
             populateArtists();
-            
-            // Populate Gallery
-            populateGallery();
-            
-            // Initialize Custom Cursor
+            populateTimeline();
             initCustomCursor();
-            
-            // Navbar Scroll Effect
             initNavbarScroll();
         }
 
-        // Counter Animation
         function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            counters.forEach(counter => {
+            document.querySelectorAll('.counter').forEach(counter => {
                 const target = parseInt(counter.getAttribute('data-target'));
                 const duration = 2000;
                 const increment = target / (duration / 16);
                 let current = 0;
                 
-                const updateCounter = () => {
+                const update = () => {
                     current += increment;
-                    if (current < target) {
-                        counter.textContent = Math.floor(current);
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.textContent = target;
-                    }
+                    counter.textContent = current < target ? Math.floor(current) : target;
+                    if (current < target) requestAnimationFrame(update);
                 };
-                
-                updateCounter();
+                update();
             });
         }
 
-        // Populate Artists Grid
         function populateArtists() {
             const grid = document.getElementById('artists-grid');
             artistsData.forEach((artist, index) => {
@@ -854,8 +888,7 @@
                 card.onclick = () => showArtistDetails(artist);
                 card.innerHTML = `
                     <div class="aspect-square overflow-hidden">
-                        <img src="${artist.image}" alt="${artist.name}" 
-                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 filter grayscale group-hover:grayscale-0">
+                        <img src="${artist.image}" alt="${artist.name}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 filter grayscale group-hover:grayscale-0">
                     </div>
                     <div class="absolute inset-0 bg-gradient-to-t from-midnight-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
@@ -865,54 +898,35 @@
                 `;
                 grid.appendChild(card);
                 
-                // Stagger Animation
                 gsap.from(card, {
-                    scrollTrigger: {
-                        trigger: card,
-                        start: "top 90%"
-                    },
-                    y: 50,
-                    opacity: 0,
-                    duration: 0.6,
-                    delay: index * 0.1,
-                    ease: "power3.out"
+                    scrollTrigger: { trigger: card, start: "top 90%" },
+                    y: 50, opacity: 0, duration: 0.6, delay: index * 0.1
                 });
             });
         }
 
-        // Populate Gallery Marquee
-        function populateGallery() {
-            const marquee = document.getElementById('gallery-marquee');
-            // Duplicate images for seamless loop
-            const images = [...galleryImages, ...galleryImages];
-            images.forEach(src => {
-                const img = document.createElement('div');
-                img.className = 'inline-block w-80 h-52 rounded-lg overflow-hidden flex-shrink-0 transform hover:scale-105 transition-transform duration-500';
-                img.innerHTML = `<img src="${src}" class="w-full h-full object-cover" alt="Galeria">`;
-                marquee.appendChild(img);
+        function populateTimeline() {
+            const container = document.getElementById('timeline-container');
+            historyData.forEach((item, index) => {
+                const isEven = index % 2 === 0;
+                const div = document.createElement('div');
+                div.className = `relative flex items-center justify-between ${isEven ? 'md:flex-row-reverse' : ''} group`;
+                div.innerHTML = `
+                    <div class="hidden md:block w-5/12"></div>
+                    <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gold-500 rounded-full border-4 border-midnight-900 z-10 group-hover:scale-150 transition-transform ${item.highlight ? 'animate-pulse' : ''}"></div>
+                    <div class="w-full md:w-5/12 pl-8 ${isEven ? 'md:pl-0 md:pr-8 md:text-right' : 'md:pl-8'}">
+                        <div class="glass p-6 rounded-2xl ${item.highlight ? 'border-gold-500/30 bg-gold-500/5' : 'hover:border-gold-500/50'} transition-colors">
+                            <span class="text-gold-400 font-display text-2xl font-bold">${item.year}</span>
+                            <h3 class="text-white font-bold text-lg mt-2">${item.title}</h3>
+                            <p class="text-gray-400 mt-2 text-sm">${item.description}</p>
+                            ${item.client ? `<p class="text-gold-400/70 text-xs mt-2 uppercase tracking-wider">Cliente: ${item.client}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(div);
             });
         }
 
-        // Show All Artists Modal
-        function showAllArtists() {
-            const modal = document.getElementById('artist-modal');
-            const content = document.getElementById('modal-content');
-            content.innerHTML = `
-                <h2 class="font-display text-3xl font-bold text-gold-gradient mb-6">Todos os Artistas</h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-[60vh] overflow-y-auto pr-4 custom-scrollbar">
-                    ${allArtistsList.map(artist => `
-                        <div class="p-3 bg-midnight-800/50 rounded-lg text-gray-300 text-sm hover:bg-gold-500/10 hover:text-gold-400 transition-colors cursor-pointer">
-                            ${artist}
-                        </div>
-                    `).join('')}
-                </div>
-            `;
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            lucide.createIcons();
-        }
-
-        // Show Artist Details
         function showArtistDetails(artist) {
             const modal = document.getElementById('artist-modal');
             const content = document.getElementById('modal-content');
@@ -921,9 +935,7 @@
                     <img src="${artist.image}" alt="${artist.name}" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-gold-500/30">
                     <h2 class="font-display text-3xl font-bold text-white mb-2">${artist.name}</h2>
                     <p class="text-gold-400 text-lg mb-6">${artist.genre}</p>
-                    <p class="text-gray-400 mb-6">Artista agenciado pela Luarte Shows. Entre em contato para verificar disponibilidade para eventos.</p>
-                    <a href="https://wa.me/5521987971000?text=Olá! Gostaria de informações sobre ${artist.name}" 
-                       target="_blank" 
+                    <a href="https://wa.me/5521987971000?text=Olá! Gostaria de informações sobre ${artist.name}" target="_blank" 
                        class="inline-flex items-center gap-2 bg-green-500 text-white px-6 py-3 rounded-full font-bold hover:bg-green-600 transition-colors">
                         <i data-lucide="message-circle" class="w-5 h-5"></i>
                         Consultar Disponibilidade
@@ -935,34 +947,57 @@
             lucide.createIcons();
         }
 
-        // Close Modal
+        function showAllArtists() {
+            const modal = document.getElementById('artist-modal');
+            const content = document.getElementById('modal-content');
+            
+            const columnSize = Math.ceil(allArtistsList.length / 3);
+            const columns = [
+                allArtistsList.slice(0, columnSize),
+                allArtistsList.slice(columnSize, columnSize * 2),
+                allArtistsList.slice(columnSize * 2)
+            ];
+            
+            content.innerHTML = `
+                <h2 class="font-display text-3xl font-bold text-gold-gradient mb-2 text-center">Artistas e Parceiros</h2>
+                <p class="text-gray-500 text-sm text-center mb-6">Mais de 150 nomes que fizeram parte da nossa história</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-h-[60vh] overflow-y-auto pr-2">
+                    ${columns.map(col => `
+                        <div class="space-y-2">
+                            ${col.map(artist => `
+                                <div class="p-3 bg-midnight-800/50 rounded-lg text-gray-300 text-sm hover:bg-gold-500/10 hover:text-gold-400 transition-colors cursor-pointer text-center border border-transparent hover:border-gold-500/30">
+                                    ${artist}
+                                </div>
+                            `).join('')}
+                        </div>
+                    `).join('')}
+                </div>
+                <p class="text-gray-600 text-xs text-center mt-6 italic">
+                    Entre outros artistas e formações musicais que passaram pela Luarte Shows
+                </p>
+            `;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
         function closeModal() {
             const modal = document.getElementById('artist-modal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
+            const iframes = modal.querySelectorAll('iframe');
+            iframes.forEach(iframe => { iframe.src = iframe.src; });
         }
 
-        // Custom Cursor
         function initCustomCursor() {
             const cursor = document.getElementById('cursor');
             const cursorDot = document.getElementById('cursor-dot');
             
             document.addEventListener('mousemove', (e) => {
-                gsap.to(cursor, {
-                    x: e.clientX - 10,
-                    y: e.clientY - 10,
-                    duration: 0.1
-                });
-                gsap.to(cursorDot, {
-                    x: e.clientX - 2,
-                    y: e.clientY - 2,
-                    duration: 0.5
-                });
+                gsap.to(cursor, { x: e.clientX - 10, y: e.clientY - 10, duration: 0.1 });
+                gsap.to(cursorDot, { x: e.clientX - 2, y: e.clientY - 2, duration: 0.5 });
             });
             
-            // Hover effects
-            const clickables = document.querySelectorAll('a, button, .artist-card');
-            clickables.forEach(el => {
+            document.querySelectorAll('a, button, .artist-card, .youtube-placeholder').forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     cursor.style.transform = 'scale(1.5)';
                     cursor.style.borderColor = '#FFD700';
@@ -974,21 +1009,14 @@
             });
         }
 
-        // Navbar Scroll Effect
         function initNavbarScroll() {
             const navbar = document.getElementById('navbar');
-            let lastScroll = 0;
-            
             window.addEventListener('scroll', () => {
-                const currentScroll = window.pageYOffset;
-                
-                if (currentScroll > 100) {
+                if (window.pageYOffset > 100) {
                     navbar.classList.add('glass');
                 } else {
                     navbar.classList.remove('glass');
                 }
-                
-                lastScroll = currentScroll;
             });
         }
 
@@ -996,7 +1024,6 @@
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const closeMenuBtn = document.getElementById('close-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
 
         mobileMenuBtn.addEventListener('click', () => {
             mobileMenu.classList.remove('hidden');
@@ -1008,21 +1035,18 @@
             mobileMenu.classList.remove('flex');
         });
 
-        mobileLinks.forEach(link => {
+        document.querySelectorAll('.mobile-link').forEach(link => {
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
                 mobileMenu.classList.remove('flex');
             });
         });
 
-        // Form Submission
+        // Form
         document.getElementById('contact-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            // Simulate form submission
-            const btn = e.target.querySelector('button[type="submit"]');
+            const btn = e.target.querySelector('button');
             const originalText = btn.textContent;
-            
             btn.textContent = 'Enviando...';
             btn.disabled = true;
             
@@ -1030,7 +1054,6 @@
                 btn.textContent = 'Mensagem Enviada!';
                 btn.classList.add('bg-green-500');
                 btn.classList.remove('from-gold-500', 'to-gold-600');
-                
                 setTimeout(() => {
                     btn.textContent = originalText;
                     btn.disabled = false;
@@ -1041,18 +1064,12 @@
             }, 1500);
         });
 
-        // Close modal on outside click
         document.getElementById('artist-modal').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) {
-                closeModal();
-            }
+            if (e.target === e.currentTarget) closeModal();
         });
 
-        // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeModal();
-            }
+            if (e.key === 'Escape') closeModal();
         });
     </script>
 </body>
