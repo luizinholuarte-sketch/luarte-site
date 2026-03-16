@@ -11,8 +11,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Inter:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS - Build Local -->
+    <link rel="stylesheet" href="./dist/output.css">
     
     <!-- GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -21,207 +21,6 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        'display': ['Cinzel', 'serif'],
-                        'body': ['Inter', 'sans-serif'],
-                        'accent': ['Playfair Display', 'serif'],
-                    },
-                    colors: {
-                        'gold': {
-                            400: '#D4AF37',
-                            500: '#C5A028',
-                            600: '#B08D1F',
-                        },
-                        'midnight': {
-                            900: '#0a0a0f',
-                            800: '#12121a',
-                            700: '#1a1a25',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <style>
-        body {
-            background-color: #0a0a0f;
-            color: #e5e5e5;
-            overflow-x: hidden;
-        }
-        
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0a0a0f;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #D4AF37, #B08D1F);
-            border-radius: 4px;
-        }
-        
-        .noise-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-        }
-        
-        .text-gold-gradient {
-            background: linear-gradient(135deg, #FFD700 0%, #D4AF37 50%, #B08D1F 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .glass {
-            background: rgba(26, 26, 37, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-        }
-        
-        .youtube-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            background: #12121a;
-            border-radius: 12px;
-        }
-        
-        .youtube-container iframe,
-        .youtube-placeholder {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        .youtube-placeholder {
-            cursor: pointer;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .youtube-play-btn {
-            width: 80px;
-            height: 80px;
-            background: rgba(212, 175, 55, 0.9);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-        
-        .youtube-play-btn:hover {
-            transform: scale(1.1);
-            background: #FFD700;
-        }
-        
-        .youtube-play-btn svg {
-            width: 30px;
-            height: 30px;
-            fill: #0a0a0f;
-            margin-left: 5px;
-        }
-        
-        .artist-card {
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .artist-card:hover {
-            transform: translateY(-10px) scale(1.02);
-        }
-        
-        #loader {
-            position: fixed;
-            inset: 0;
-            background: #0a0a0f;
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-        
-        .loader-line {
-            width: 0%;
-            height: 2px;
-            background: linear-gradient(90deg, #D4AF37, #FFD700);
-            transition: width 0.5s ease;
-        }
-        
-        .custom-cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #D4AF37;
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transition: transform 0.2s, opacity 0.2s;
-            mix-blend-mode: difference;
-        }
-        
-        .cursor-dot {
-            width: 4px;
-            height: 4px;
-            background: #D4AF37;
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-        }
-        
-        .video-card {
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .video-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.1);
-        }
-        
-        .elegant-badge {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05));
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            backdrop-filter: blur(10px);
-        }
-        
-        .footer-credit {
-            transition: all 0.3s ease;
-        }
-        .footer-credit:hover {
-            color: #D4AF37;
-        }
-        
-        .important-note {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
-            border-left: 3px solid #D4AF37;
-        }
-        
-        /* Fallback para imagens quebradas */
-        img {
-            background-color: #1a1a25;
-            min-height: 200px;
-        }
-    </style>
 <base target="_blank">
 </head>
 <body class="font-body antialiased selection:bg-gold-500 selection:text-midnight-900">
@@ -311,8 +110,8 @@
                     <div class="text-gray-400 text-sm uppercase tracking-wider mt-2">Anos de Atuação</div>
                 </div>
                 <div class="text-center">
-                    <div class="font-display text-4xl md:text-5xl text-gold-gradient font-bold counter" data-target="185">0</div>
-                    <div class="text-gray-400 text-sm uppercase tracking-wider mt-2">Artistas</div>
+                    <div class="font-display text-4xl md:text-5xl text-gold-gradient font-bold counter" data-target="100">0</div>
+                    <div class="text-gray-400 text-sm uppercase tracking-wider mt-2">Artistas Agenciados</div>
                 </div>
                 <div class="text-center">
                     <div class="font-display text-4xl md:text-5xl text-gold-gradient font-bold counter" data-target="1988">0</div>
@@ -392,7 +191,6 @@
                 </div>
                 <div class="relative reveal-right">
                     <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl shadow-gold-500/20">
-                        <!-- SUBSTITUÍDO: portela.webp para a seção Sobre -->
                         <img src="/assets/images/portela.webp" 
                              alt="Produção de Shows - Luarte Shows" 
                              class="w-full h-auto object-cover transform hover:scale-110 transition-transform duration-700"
