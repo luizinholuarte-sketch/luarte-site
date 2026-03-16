@@ -215,6 +215,12 @@
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
             border-left: 3px solid #D4AF37;
         }
+        
+        /* Fallback para imagens quebradas */
+        img {
+            background-color: #1a1a25;
+            min-height: 200px;
+        }
     </style>
 <base target="_blank">
 </head>
@@ -305,8 +311,8 @@
                     <div class="text-gray-400 text-sm uppercase tracking-wider mt-2">Anos de Atuação</div>
                 </div>
                 <div class="text-center">
-                    <div class="font-display text-4xl md:text-5xl text-gold-gradient font-bold counter" data-target="100">0</div>
-                    <div class="text-gray-400 text-sm uppercase tracking-wider mt-2">Artistas Agenciados</div>
+                    <div class="font-display text-4xl md:text-5xl text-gold-gradient font-bold counter" data-target="185">0</div>
+                    <div class="text-gray-400 text-sm uppercase tracking-wider mt-2">Artistas</div>
                 </div>
                 <div class="text-center">
                     <div class="font-display text-4xl md:text-5xl text-gold-gradient font-bold counter" data-target="1988">0</div>
@@ -386,7 +392,11 @@
                 </div>
                 <div class="relative reveal-right">
                     <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl shadow-gold-500/20">
-                        <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&h=1000&fit=crop" alt="Produção de Shows" class="w-full h-auto object-cover transform hover:scale-110 transition-transform duration-700">
+                        <!-- SUBSTITUÍDO: portela.webp para a seção Sobre -->
+                        <img src="/assets/images/portela.webp" 
+                             alt="Produção de Shows - Luarte Shows" 
+                             class="w-full h-auto object-cover transform hover:scale-110 transition-transform duration-700"
+                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%221000%22%3E%3Crect fill=%22%231a1a25%22 width=%22800%22 height=%221000%22/%3E%3Ctext fill=%22%23D4AF37%22 font-family=%22serif%22 font-size=%2240%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3ELuarte Shows%3C/text%3E%3C/svg%3E'">
                         <div class="absolute inset-0 bg-gradient-to-t from-midnight-900/80 to-transparent"></div>
                         <div class="absolute bottom-6 left-6 right-6">
                             <p class="text-white font-accent italic text-lg">"Transformando paixão em profissão desde 1988"</p>
@@ -398,7 +408,7 @@
         </div>
     </section>
 
-    <!-- VIDEOS SECTION - DESCRIÇÕES CORRIGIDAS -->
+    <!-- VIDEOS SECTION -->
     <section id="videos" class="py-32 relative bg-midnight-800/30">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16 reveal-text">
@@ -433,7 +443,7 @@
                     <div class="youtube-container" id="featured-video" data-video="1FrYCA6bLFk">
                         <div class="youtube-placeholder" 
                              style="background-image: url('https://img.youtube.com/vi/1FrYCA6bLFk/maxresdefault.jpg');"
-                             onclick="loadYouTubeVideo('featured-video', '1FrYCA6bLFk', true)">
+                             onclick="window.loadYouTubeVideo('featured-video', '1FrYCA6bLFk', true)">
                             <div class="absolute inset-0 bg-gradient-to-t from-midnight-900/60 to-transparent"></div>
                             <div class="youtube-play-btn relative z-10">
                                 <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -483,7 +493,7 @@
                     <div class="youtube-container rounded-lg" id="video-2" data-video="XB8wuKp552s">
                         <div class="youtube-placeholder" 
                              style="background-image: url('https://img.youtube.com/vi/XB8wuKp552s/maxresdefault.jpg');"
-                             onclick="loadYouTubeVideo('video-2', 'XB8wuKp552s', true)">
+                             onclick="window.loadYouTubeVideo('video-2', 'XB8wuKp552s', true)">
                             <div class="absolute inset-0 bg-gradient-to-t from-midnight-900/60 to-transparent"></div>
                             <div class="youtube-play-btn relative z-10 w-16 h-16">
                                 <svg viewBox="0 0 24 24" class="w-6 h-6"><path d="M8 5v14l11-7z"/></svg>
@@ -515,7 +525,7 @@
                     <div class="youtube-container rounded-lg" id="video-3" data-video="lfWy7loK0ww">
                         <div class="youtube-placeholder" 
                              style="background-image: url('https://img.youtube.com/vi/lfWy7loK0ww/maxresdefault.jpg');"
-                             onclick="loadYouTubeVideo('video-3', 'lfWy7loK0ww', true)">
+                             onclick="window.loadYouTubeVideo('video-3', 'lfWy7loK0ww', true)">
                             <div class="absolute inset-0 bg-gradient-to-t from-midnight-900/60 to-transparent"></div>
                             <div class="youtube-play-btn relative z-10 w-16 h-16">
                                 <svg viewBox="0 0 24 24" class="w-6 h-6"><path d="M8 5v14l11-7z"/></svg>
@@ -563,7 +573,7 @@
             </div>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="artists-grid"></div>
             <div class="mt-12 text-center">
-                <button onclick="showAllArtists()" class="px-8 py-3 border border-gold-500 text-gold-400 rounded-full hover:bg-gold-500 hover:text-midnight-900 transition-all uppercase tracking-wider text-sm font-bold">
+                <button id="btn-show-all-artists" class="px-8 py-3 border border-gold-500 text-gold-400 rounded-full hover:bg-gold-500 hover:text-midnight-900 transition-all uppercase tracking-wider text-sm font-bold">
                     Ver Lista Completa
                 </button>
             </div>
@@ -742,7 +752,7 @@
     <!-- Modal -->
     <div id="artist-modal" class="fixed inset-0 bg-midnight-900/95 backdrop-blur-xl z-50 hidden items-center justify-center p-4">
         <div class="glass max-w-4xl w-full rounded-3xl p-8 relative max-h-[90vh] overflow-y-auto">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+            <button id="btn-close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-white">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
             <div id="modal-content"></div>
@@ -750,16 +760,16 @@
     </div>
 
     <script>
-        // BANCO DE DADOS
+        // BANCO DE DADOS COM IMAGENS .WEBP LOCAIS
         const artistsData = [
-            { name: "Alceu Valença", genre: "MPB", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=400&fit=crop" },
-            { name: "Elba Ramalho", genre: "Forró/MPB", image: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=400&h=400&fit=crop" },
-            { name: "Jorge Ben Jor", genre: "Samba-Rock", image: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=400&fit=crop" },
-            { name: "Ivete Sangalo", genre: "Axé", image: "https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&h=400&fit=crop" },
-            { name: "Zeca Baleiro", genre: "MPB", image: "https://images.unsplash.com/photo-1459749411177-047381bb3ece?w=400&h=400&fit=crop" },
-            { name: "Lenine", genre: "MPB", image: "https://images.unsplash.com/photo-1501612780327-45045538702b?w=400&h=400&fit=crop" },
-            { name: "Ana Carolina", genre: "MPB/Pop", image: "https://images.unsplash.com/photo-1516280440614-6697288d5d38?w=400&h=400&fit=crop" },
-            { name: "Geraldo Azevedo", genre: "MPB", image: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&h=400&fit=crop" }
+            { name: "Geraldo Azevedo", genre: "MPB", image: "/assets/images/geraldo-azevedo.webp" },
+            { name: "Angela Ro Ro", genre: "MPB", image: "/assets/images/angela-ro-ro.webp" },
+            { name: "Jards Macalé", genre: "MPB", image: "/assets/images/jards-macale.webp" },
+            { name: "Sabrina Sato", genre: "TV/Entretenimento", image: "/assets/images/sabrina-satto.webp" },
+            { name: "Zeca Baleiro", genre: "MPB", image: "/assets/images/zeca-baleiro.webp" },
+            { name: "Lenine", genre: "MPB", image: "/assets/images/lenine.webp" },
+            { name: "Rita Benneditto", genre: "MPB", image: "/assets/images/rita-benedittto.webp" },
+            { name: "Oswaldo Montenegro", genre: "MPB", image: "/assets/images/oswaldo-montenegro.webp" }
         ];
 
         // LISTA COMPLETA COM TODOS OS ARTISTAS DO PDF
@@ -804,8 +814,11 @@
             { year: 2024, title: "Lançamento do Livro", description: "'Descortinando o Show Business'", highlight: true }
         ];
 
-        function loadYouTubeVideo(containerId, videoId, autoplay = false) {
+        // FUNÇÃO GLOBAL para carregar vídeos do YouTube
+        window.loadYouTubeVideo = function(containerId, videoId, autoplay = false) {
             const container = document.getElementById(containerId);
+            if (!container) return;
+            
             const autoplayParam = autoplay ? '1' : '0';
             
             container.innerHTML = `
@@ -817,56 +830,132 @@
                     allowfullscreen>
                 </iframe>
             `;
-        }
+        };
 
-        lucide.createIcons();
+        // Inicialização segura após DOM carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializa ícones
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+            
+            // Inicializa animações após loader
+            initLoader();
+        });
 
-        window.addEventListener('load', () => {
+        function initLoader() {
             const loaderLine = document.getElementById('loader-line');
             const loader = document.getElementById('loader');
             
-            setTimeout(() => { loaderLine.style.width = '100%'; }, 100);
-            
-            setTimeout(() => {
-                gsap.to(loader, {
-                    opacity: 0,
-                    duration: 0.8,
-                    onComplete: () => {
-                        loader.classList.add('hidden');
-                        initAnimations();
+            if (loaderLine && loader) {
+                setTimeout(() => { 
+                    loaderLine.style.width = '100%'; 
+                }, 100);
+                
+                setTimeout(() => {
+                    if (typeof gsap !== 'undefined') {
+                        gsap.to(loader, {
+                            opacity: 0,
+                            duration: 0.8,
+                            onComplete: () => {
+                                loader.classList.add('hidden');
+                                initAnimations();
+                            }
+                        });
+                    } else {
+                        // Fallback sem GSAP
+                        loader.style.opacity = '0';
+                        setTimeout(() => {
+                            loader.classList.add('hidden');
+                            initAnimations();
+                        }, 800);
                     }
-                });
-            }, 1500);
-        });
+                }, 1500);
+            } else {
+                // Se não tem loader, inicia direto
+                initAnimations();
+            }
+        }
 
         function initAnimations() {
-            gsap.to('#navbar', { opacity: 1, y: 0, duration: 1, ease: "power3.out" });
-            gsap.to('.hero-content', { opacity: 1, y: 0, duration: 1.2, delay: 0.2, ease: "power3.out" });
-            gsap.to('#stats', { opacity: 1, duration: 1, delay: 0.8, onComplete: animateCounters });
+            // Navbar
+            const navbar = document.getElementById('navbar');
+            if (navbar) {
+                if (typeof gsap !== 'undefined') {
+                    gsap.to(navbar, { opacity: 1, y: 0, duration: 1, ease: "power3.out" });
+                } else {
+                    navbar.style.opacity = '1';
+                    navbar.style.transform = 'translateY(0)';
+                }
+            }
             
-            gsap.registerPlugin(ScrollTrigger);
+            // Hero content
+            const heroContent = document.querySelector('.hero-content');
+            if (heroContent) {
+                if (typeof gsap !== 'undefined') {
+                    gsap.to(heroContent, { opacity: 1, y: 0, duration: 1.2, delay: 0.2, ease: "power3.out" });
+                } else {
+                    heroContent.style.opacity = '1';
+                    heroContent.style.transform = 'translateY(0)';
+                }
+            }
             
-            gsap.utils.toArray('.reveal-left').forEach(el => {
-                gsap.from(el, { scrollTrigger: { trigger: el, start: "top 80%" }, x: -50, opacity: 0, duration: 1 });
-            });
+            // Stats
+            const stats = document.getElementById('stats');
+            if (stats) {
+                if (typeof gsap !== 'undefined') {
+                    gsap.to(stats, { 
+                        opacity: 1, 
+                        duration: 1, 
+                        delay: 0.8, 
+                        onComplete: animateCounters 
+                    });
+                } else {
+                    stats.style.opacity = '1';
+                    animateCounters();
+                }
+            }
             
-            gsap.utils.toArray('.reveal-right').forEach(el => {
-                gsap.from(el, { scrollTrigger: { trigger: el, start: "top 80%" }, x: 50, opacity: 0, duration: 1 });
-            });
+            // Scroll animations
+            if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+                
+                gsap.utils.toArray('.reveal-left').forEach(el => {
+                    gsap.from(el, { 
+                        scrollTrigger: { trigger: el, start: "top 80%" }, 
+                        x: -50, opacity: 0, duration: 1 
+                    });
+                });
+                
+                gsap.utils.toArray('.reveal-right').forEach(el => {
+                    gsap.from(el, { 
+                        scrollTrigger: { trigger: el, start: "top 80%" }, 
+                        x: 50, opacity: 0, duration: 1 
+                    });
+                });
+                
+                gsap.utils.toArray('.reveal-text').forEach(el => {
+                    gsap.from(el, { 
+                        scrollTrigger: { trigger: el, start: "top 85%" }, 
+                        y: 30, opacity: 0, duration: 1 
+                    });
+                });
+            }
             
-            gsap.utils.toArray('.reveal-text').forEach(el => {
-                gsap.from(el, { scrollTrigger: { trigger: el, start: "top 85%" }, y: 30, opacity: 0, duration: 1 });
-            });
-
             populateArtists();
             populateTimeline();
             initCustomCursor();
             initNavbarScroll();
+            initMobileMenu();
+            initContactForm();
+            initModal();
         }
 
         function animateCounters() {
             document.querySelectorAll('.counter').forEach(counter => {
                 const target = parseInt(counter.getAttribute('data-target'));
+                if (isNaN(target)) return;
+                
                 const duration = 2000;
                 const increment = target / (duration / 16);
                 let current = 0;
@@ -882,13 +971,19 @@
 
         function populateArtists() {
             const grid = document.getElementById('artists-grid');
+            if (!grid) return;
+            
+            grid.innerHTML = ''; // Limpa antes de popular
+            
             artistsData.forEach((artist, index) => {
                 const card = document.createElement('div');
                 card.className = 'artist-card group relative overflow-hidden rounded-xl bg-midnight-800 cursor-pointer';
-                card.onclick = () => showArtistDetails(artist);
                 card.innerHTML = `
                     <div class="aspect-square overflow-hidden">
-                        <img src="${artist.image}" alt="${artist.name}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 filter grayscale group-hover:grayscale-0">
+                        <img src="${artist.image}" 
+                             alt="${artist.name}" 
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 filter grayscale group-hover:grayscale-0"
+                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22400%22%3E%3Crect fill=%22%231a1a25%22 width=%22400%22 height=%22400%22/%3E%3Ctext fill=%22%23D4AF37%22 font-family=%22serif%22 font-size=%2220%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3E${artist.name}%3C/text%3E%3C/svg%3E'">
                     </div>
                     <div class="absolute inset-0 bg-gradient-to-t from-midnight-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
@@ -896,17 +991,28 @@
                         <p class="text-gold-400 text-sm">${artist.genre}</p>
                     </div>
                 `;
+                
+                // Event listener seguro
+                card.addEventListener('click', function() {
+                    showArtistDetails(artist);
+                });
+                
                 grid.appendChild(card);
                 
-                gsap.from(card, {
-                    scrollTrigger: { trigger: card, start: "top 90%" },
-                    y: 50, opacity: 0, duration: 0.6, delay: index * 0.1
-                });
+                // Animação de entrada
+                if (typeof gsap !== 'undefined') {
+                    gsap.from(card, {
+                        scrollTrigger: { trigger: card, start: "top 90%" },
+                        y: 50, opacity: 0, duration: 0.6, delay: index * 0.1
+                    });
+                }
             });
         }
 
         function populateTimeline() {
             const container = document.getElementById('timeline-container');
+            if (!container) return;
+            
             historyData.forEach((item, index) => {
                 const isEven = index % 2 === 0;
                 const div = document.createElement('div');
@@ -930,26 +1036,39 @@
         function showArtistDetails(artist) {
             const modal = document.getElementById('artist-modal');
             const content = document.getElementById('modal-content');
+            
+            if (!modal || !content) return;
+            
             content.innerHTML = `
                 <div class="text-center">
-                    <img src="${artist.image}" alt="${artist.name}" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-gold-500/30">
+                    <img src="${artist.image}" 
+                         alt="${artist.name}" 
+                         class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-gold-500/30"
+                         onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22128%22 height=%22128%22%3E%3Crect fill=%22%231a1a25%22 width=%22128%22 height=%22128%22/%3E%3Ctext fill=%22%23D4AF37%22 font-family=%22serif%22 font-size=%2216%22 x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dominant-baseline=%22middle%22%3E${artist.name}%3C/text%3E%3C/svg%3E'">
                     <h2 class="font-display text-3xl font-bold text-white mb-2">${artist.name}</h2>
                     <p class="text-gold-400 text-lg mb-6">${artist.genre}</p>
-                    <a href="https://wa.me/5521987971000?text=Olá! Gostaria de informações sobre ${artist.name}" target="_blank" 
+                    <a href="https://wa.me/5521987971000?text=Olá! Gostaria de informações sobre ${encodeURIComponent(artist.name)}" target="_blank" 
                        class="inline-flex items-center gap-2 bg-green-500 text-white px-6 py-3 rounded-full font-bold hover:bg-green-600 transition-colors">
                         <i data-lucide="message-circle" class="w-5 h-5"></i>
                         Consultar Disponibilidade
                     </a>
                 </div>
             `;
+            
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            lucide.createIcons();
+            
+            // Re-inicializa ícones no modal
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
         }
 
         function showAllArtists() {
             const modal = document.getElementById('artist-modal');
             const content = document.getElementById('modal-content');
+            
+            if (!modal || !content) return;
             
             const columnSize = Math.ceil(allArtistsList.length / 3);
             const columns = [
@@ -976,25 +1095,47 @@
                     Entre outros artistas e formações musicais que passaram pela Luarte Shows
                 </p>
             `;
+            
             modal.classList.remove('hidden');
             modal.classList.add('flex');
         }
 
         function closeModal() {
             const modal = document.getElementById('artist-modal');
+            if (!modal) return;
+            
             modal.classList.add('hidden');
             modal.classList.remove('flex');
+            
             const iframes = modal.querySelectorAll('iframe');
-            iframes.forEach(iframe => { iframe.src = iframe.src; });
+            iframes.forEach(iframe => { 
+                iframe.src = iframe.src; 
+            });
         }
 
         function initCustomCursor() {
             const cursor = document.getElementById('cursor');
             const cursorDot = document.getElementById('cursor-dot');
             
+            if (!cursor || !cursorDot) return;
+            
+            // Só em desktop
+            if (window.matchMedia('(pointer: coarse)').matches) {
+                cursor.style.display = 'none';
+                cursorDot.style.display = 'none';
+                return;
+            }
+            
             document.addEventListener('mousemove', (e) => {
-                gsap.to(cursor, { x: e.clientX - 10, y: e.clientY - 10, duration: 0.1 });
-                gsap.to(cursorDot, { x: e.clientX - 2, y: e.clientY - 2, duration: 0.5 });
+                if (typeof gsap !== 'undefined') {
+                    gsap.to(cursor, { x: e.clientX - 10, y: e.clientY - 10, duration: 0.1 });
+                    gsap.to(cursorDot, { x: e.clientX - 2, y: e.clientY - 2, duration: 0.5 });
+                } else {
+                    cursor.style.left = (e.clientX - 10) + 'px';
+                    cursor.style.top = (e.clientY - 10) + 'px';
+                    cursorDot.style.left = (e.clientX - 2) + 'px';
+                    cursorDot.style.top = (e.clientY - 2) + 'px';
+                }
             });
             
             document.querySelectorAll('a, button, .artist-card, .youtube-placeholder').forEach(el => {
@@ -1011,6 +1152,8 @@
 
         function initNavbarScroll() {
             const navbar = document.getElementById('navbar');
+            if (!navbar) return;
+            
             window.addEventListener('scroll', () => {
                 if (window.pageYOffset > 100) {
                     navbar.classList.add('glass');
@@ -1020,57 +1163,83 @@
             });
         }
 
-        // Mobile Menu
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const closeMenuBtn = document.getElementById('close-menu');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.remove('hidden');
-            mobileMenu.classList.add('flex');
-        });
-
-        closeMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.add('hidden');
-            mobileMenu.classList.remove('flex');
-        });
-
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => {
+        function initMobileMenu() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closeMenuBtn = document.getElementById('close-menu');
+            
+            if (!mobileMenuBtn || !mobileMenu || !closeMenuBtn) return;
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+            });
+            
+            closeMenuBtn.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
                 mobileMenu.classList.remove('flex');
             });
-        });
-
-        // Form
-        document.getElementById('contact-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = e.target.querySelector('button');
-            const originalText = btn.textContent;
-            btn.textContent = 'Enviando...';
-            btn.disabled = true;
             
-            setTimeout(() => {
-                btn.textContent = 'Mensagem Enviada!';
-                btn.classList.add('bg-green-500');
-                btn.classList.remove('from-gold-500', 'to-gold-600');
+            document.querySelectorAll('.mobile-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                });
+            });
+        }
+
+        function initContactForm() {
+            const form = document.getElementById('contact-form');
+            if (!form) return;
+            
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const btn = form.querySelector('button');
+                if (!btn) return;
+                
+                const originalText = btn.textContent;
+                btn.textContent = 'Enviando...';
+                btn.disabled = true;
+                
                 setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.disabled = false;
-                    btn.classList.remove('bg-green-500');
-                    btn.classList.add('from-gold-500', 'to-gold-600');
-                    e.target.reset();
-                }, 3000);
-            }, 1500);
-        });
+                    btn.textContent = 'Mensagem Enviada!';
+                    btn.classList.add('bg-green-500');
+                    btn.classList.remove('from-gold-500', 'to-gold-600');
+                    
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.disabled = false;
+                        btn.classList.remove('bg-green-500');
+                        btn.classList.add('from-gold-500', 'to-gold-600');
+                        form.reset();
+                    }, 3000);
+                }, 1500);
+            });
+        }
 
-        document.getElementById('artist-modal').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) closeModal();
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
+        function initModal() {
+            const modal = document.getElementById('artist-modal');
+            const closeBtn = document.getElementById('btn-close-modal');
+            const showAllBtn = document.getElementById('btn-show-all-artists');
+            
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeModal);
+            }
+            
+            if (showAllBtn) {
+                showAllBtn.addEventListener('click', showAllArtists);
+            }
+            
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeModal();
+                });
+            }
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeModal();
+            });
+        }
     </script>
 </body>
 </html>
