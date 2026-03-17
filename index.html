@@ -44,9 +44,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
     <style>
         * {
             margin: 0;
@@ -175,36 +172,6 @@
             transition: width 0.5s ease;
         }
         
-        .custom-cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #D4AF37;
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transition: transform 0.2s, opacity 0.2s;
-            mix-blend-mode: difference;
-        }
-        
-        .cursor-dot {
-            width: 4px;
-            height: 4px;
-            background: #D4AF37;
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-        }
-        
-        .video-card {
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .video-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.1);
-        }
-        
         .elegant-badge {
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.05));
             border: 1px solid rgba(212, 175, 55, 0.3);
@@ -229,17 +196,11 @@
             display: block;
         }
         
-        .hidden { display: none !important; }
-        .flex { display: flex !important; }
-        
-        /* Mobile menu */
         #mobile-menu {
             display: none;
         }
-        #mobile-menu.active {
-            display: flex;
-        }
     </style>
+<base target="_blank">
 <base target="_blank">
 </head>
 <body class="font-body antialiased selection:bg-gold-500 selection:text-midnight-900">
@@ -255,8 +216,8 @@
         <p class="mt-4 text-gray-500 text-sm tracking-widest uppercase">Carregando Experiência</p>
     </div>
 
-    <!-- Navbar -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500" style="opacity: 0; transform: translateY(-100%);">
+    <!-- Navbar - SEMPRE VISÍVEL -->
+    <nav id="navbar" class="fixed w-full z-50 top-0 left-0 right-0" style="opacity: 1; transform: translateY(0);">
         <div class="glass mx-4 mt-4 rounded-full px-6 py-4 max-w-7xl mx-auto">
             <div class="flex justify-between items-center">
                 <a href="#hero" class="font-display text-2xl font-bold text-gold-gradient tracking-wider">
@@ -270,8 +231,8 @@
                     <a href="#livro" class="text-sm uppercase tracking-widest hover:text-gold-400 transition-colors">Livro</a>
                     <a href="#contato" class="px-6 py-2 border border-gold-500 text-gold-400 rounded-full text-sm uppercase tracking-widest hover:bg-gold-500 hover:text-midnight-900 transition-all">Contato</a>
                 </div>
-                <button id="mobile-menu-btn" class="md:hidden text-gold-400 p-2">
-                    <span class="text-2xl">☰</span>
+                <button id="mobile-menu-btn" class="md:hidden text-gold-400 p-2 text-2xl">
+                    ☰
                 </button>
             </div>
         </div>
@@ -291,7 +252,7 @@
     </div>
 
     <!-- Hero Section -->
-    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
         <div class="absolute inset-0 bg-gradient-to-b from-midnight-900 via-midnight-800 to-midnight-900"></div>
         <div class="absolute inset-0 overflow-hidden">
             <div class="absolute top-20 left-10 w-72 h-72 bg-gold-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -404,11 +365,11 @@
                 </div>
                 <div class="relative reveal-right">
                     <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl shadow-gold-500/20">
-                        <img src="./assets/images/portela.webp" 
+                        <img src="/assets/images/portela.webp" 
                              alt="Produção de Shows - Luarte Shows" 
                              class="w-full h-auto object-cover transform hover:scale-110 transition-transform duration-700"
                              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div style="display: none;" class="w-full h-96 bg-midnight-800 items-center justify-center text-gold-400 text-xl">
+                        <div style="display: none;" class="w-full h-96 bg-midnight-800 items-center justify-center text-gold-400 text-xl flex">
                             Luarte Shows
                         </div>
                         <div class="absolute inset-0 bg-gradient-to-t from-midnight-900/80 to-transparent"></div>
@@ -422,7 +383,7 @@
         </div>
     </section>
 
-    <!-- VIDEOS SECTION - CORRIGIDO (sem "Fabiana") -->
+    <!-- VIDEOS SECTION -->
     <section id="videos" class="py-32 relative bg-midnight-800/30">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16 reveal-text">
@@ -700,18 +661,18 @@
         </div>
     </div>
 
-    <!-- JAVASCRIPT SIMPLIFICADO E CORRIGIDO -->
+    <!-- JAVASCRIPT COMPLETO -->
     <script>
-        // DADOS DOS ARTISTAS COM CAMINHOS CORRETOS
+        // DADOS DOS ARTISTAS - CAMINHOS ABSOLUTOS
         const artistsData = [
-            { name: "Geraldo Azevedo", genre: "MPB", image: "./assets/images/geraldo-azevedo.webp" },
-            { name: "Angela Ro Ro", genre: "MPB", image: "./assets/images/angela-ro-ro.webp" },
-            { name: "Jards Macalé", genre: "MPB", image: "./assets/images/jards-macale.webp" },
-            { name: "Sabrina Sato", genre: "TV/Entretenimento", image: "./assets/images/sabrina-satto.webp" },
-            { name: "Zeca Baleiro", genre: "MPB", image: "./assets/images/zeca-baleiro.webp" },
-            { name: "Lenine", genre: "MPB", image: "./assets/images/lenine.webp" },
-            { name: "Rita Benneditto", genre: "MPB", image: "./assets/images/rita-benedittto.webp" },
-            { name: "Oswaldo Montenegro", genre: "MPB", image: "./assets/images/oswaldo-montenegro.webp" }
+            { name: "Geraldo Azevedo", genre: "MPB", image: "/assets/images/geraldo-azevedo.webp" },
+            { name: "Angela Ro Ro", genre: "MPB", image: "/assets/images/angela-ro-ro.webp" },
+            { name: "Jards Macalé", genre: "MPB", image: "/assets/images/jards-macale.webp" },
+            { name: "Sabrina Sato", genre: "TV/Entretenimento", image: "/assets/images/sabrina-satto.webp" },
+            { name: "Zeca Baleiro", genre: "MPB", image: "/assets/images/zeca-baleiro.webp" },
+            { name: "Lenine", genre: "MPB", image: "/assets/images/lenine.webp" },
+            { name: "Rita Benneditto", genre: "MPB", image: "/assets/images/rita-benedittto.webp" },
+            { name: "Oswaldo Montenegro", genre: "MPB", image: "/assets/images/oswaldo-montenegro.webp" }
         ];
 
         const allArtistsList = [
@@ -741,36 +702,22 @@
             container.innerHTML = '<iframe src="https://www.youtube.com/embed/' + videoId + '?autoplay=' + auto + '&rel=0&modestbranding=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>';
         };
 
-        // QUANDO A PÁGINA CARREGAR
+        // INICIALIZAÇÃO IMEDIATA
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('Página carregada - iniciando...');
+            console.log('=== INICIANDO SITE ===');
             
-            // Esconder loader
-            setTimeout(function() {
-                var loader = document.getElementById('loader');
-                var line = document.getElementById('loader-line');
-                if (line) line.style.width = '100%';
-                
-                setTimeout(function() {
-                    if (loader) {
-                        loader.style.opacity = '0';
-                        setTimeout(function() {
-                            loader.style.display = 'none';
-                            initSite();
-                        }, 500);
-                    }
-                }, 500);
-            }, 100);
-        });
-
-        function initSite() {
-            console.log('Inicializando site...');
+            // Esconder loader imediatamente
+            var loader = document.getElementById('loader');
+            if (loader) {
+                loader.style.display = 'none';
+            }
             
-            // Mostrar navbar
+            // Garantir que navbar está visível
             var navbar = document.getElementById('navbar');
             if (navbar) {
                 navbar.style.opacity = '1';
                 navbar.style.transform = 'translateY(0)';
+                console.log('Navbar visível');
             }
             
             // Mostrar hero
@@ -797,7 +744,9 @@
             
             // Inicializar eventos
             initEvents();
-        }
+            
+            console.log('=== SITE PRONTO ===');
+        });
 
         function animateCounters() {
             var counters = document.querySelectorAll('.counter');
@@ -824,27 +773,60 @@
         function populateArtists() {
             var grid = document.getElementById('artists-grid');
             if (!grid) {
-                console.error('Grid de artistas não encontrado');
+                console.error('ERRO: Grid de artistas não encontrado!');
                 return;
             }
             
+            console.log('Populando ' + artistsData.length + ' artistas...');
             grid.innerHTML = '';
             
             artistsData.forEach(function(artist, index) {
+                console.log('Artista ' + (index + 1) + ': ' + artist.name + ' -> ' + artist.image);
+                
                 var card = document.createElement('div');
                 card.className = 'artist-card group relative overflow-hidden rounded-xl bg-midnight-800';
-                card.innerHTML = 
-                    '<div class="aspect-square overflow-hidden bg-midnight-800">' +
-                        '<img src="' + artist.image + '" alt="' + artist.name + '" ' +
-                        'class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" ' +
-                        'onerror="this.style.display=\'none\'; this.parentElement.innerHTML=\'<div class=\\\'w-full h-full flex items-center justify-center text-gold-400 text-lg\\\'>' + artist.name + '</div>\';">' +
-                    '</div>' +
-                    '<div class="absolute inset-0 bg-gradient-to-t from-midnight-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>' +
-                    '<div class="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-midnight-900 to-transparent">' +
-                        '<h3 class="font-display text-lg font-bold text-white">' + artist.name + '</h3>' +
-                        '<p class="text-gold-400 text-sm">' + artist.genre + '</p>' +
-                    '</div>';
+                card.style.cursor = 'pointer';
                 
+                // Container da imagem
+                var imgContainer = document.createElement('div');
+                imgContainer.className = 'aspect-square overflow-hidden bg-midnight-800 flex items-center justify-center';
+                imgContainer.style.minHeight = '200px';
+                
+                var img = document.createElement('img');
+                img.src = artist.image;
+                img.alt = artist.name;
+                img.className = 'w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700';
+                img.style.display = 'block';
+                
+                // Debug
+                img.onload = function() {
+                    console.log('✓ Imagem carregada: ' + artist.name);
+                };
+                
+                img.onerror = function() {
+                    console.error('✗ Imagem falhou: ' + artist.image);
+                    this.style.display = 'none';
+                    imgContainer.innerHTML = '<div style="color:#D4AF37;font-size:14px;text-align:center;padding:20px;">' + artist.name + '</div>';
+                };
+                
+                imgContainer.appendChild(img);
+                
+                // Overlay
+                var overlay = document.createElement('div');
+                overlay.className = 'absolute inset-0 bg-gradient-to-t from-midnight-900 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300';
+                
+                // Info
+                var info = document.createElement('div');
+                info.className = 'absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-midnight-900 to-transparent';
+                info.innerHTML = 
+                    '<h3 class="font-display text-lg font-bold text-white">' + artist.name + '</h3>' +
+                    '<p class="text-gold-400 text-sm">' + artist.genre + '</p>';
+                
+                card.appendChild(imgContainer);
+                card.appendChild(overlay);
+                card.appendChild(info);
+                
+                // Evento de clique
                 card.onclick = function() {
                     showArtistModal(artist);
                 };
@@ -852,7 +834,7 @@
                 grid.appendChild(card);
             });
             
-            console.log('Artistas populados: ' + artistsData.length);
+            console.log('Artistas populados com sucesso');
         }
 
         function populateTimeline() {
@@ -886,14 +868,13 @@
             
             content.innerHTML = 
                 '<div class="text-center">' +
-                    '<div class="w-32 h-32 rounded-full mx-auto mb-4 bg-midnight-800 flex items-center justify-center overflow-hidden border-4 border-gold-500/30">' +
-                        '<img src="' + artist.image + '" alt="' + artist.name + '" class="w-full h-full object-cover" ' +
-                        'onerror="this.style.display=\'none\'; this.parentElement.innerText=\'' + artist.name + '\';">' +
+                    '<div style="width:128px;height:128px;border-radius:50%;margin:0 auto 16px;background:#1a1a25;overflow:hidden;border:4px solid rgba(212,175,55,0.3);display:flex;align-items:center;justify-content:center;">' +
+                        '<img src="' + artist.image + '" alt="' + artist.name + '" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display=\'none\';this.parentElement.innerText=\'' + artist.name + '\';">' +
                     '</div>' +
                     '<h2 class="font-display text-3xl font-bold text-white mb-2">' + artist.name + '</h2>' +
                     '<p class="text-gold-400 text-lg mb-6">' + artist.genre + '</p>' +
                     '<a href="https://wa.me/5521987971000?text=Olá! Gostaria de informações sobre ' + encodeURIComponent(artist.name) + '" target="_blank" ' +
-                    'class="inline-flex items-center gap-2 bg-green-500 text-white px-6 py-3 rounded-full font-bold hover:bg-green-600 transition-colors">' +
+                    'style="display:inline-flex;align-items:center;gap:8px;background:#22c55e;color:white;padding:12px 24px;border-radius:9999px;font-weight:bold;text-decoration:none;">' +
                         '💬 Consultar Disponibilidade' +
                     '</a>' +
                 '</div>';
@@ -909,10 +890,12 @@
             
             var html = '<h2 class="font-display text-3xl font-bold text-gold-gradient mb-2 text-center">Artistas e Parceiros</h2>' +
                       '<p class="text-gray-500 text-sm text-center mb-6">Mais de 150 nomes que fizeram parte da nossa história</p>' +
-                      '<div class="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-[60vh] overflow-y-auto pr-2">';
+                      '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;max-height:60vh;overflow-y:auto;padding-right:8px;">';
             
             allArtistsList.forEach(function(artist) {
-                html += '<div class="p-3 bg-midnight-800/50 rounded-lg text-gray-300 text-sm hover:bg-gold-500/10 hover:text-gold-400 transition-colors cursor-pointer text-center border border-transparent hover:border-gold-500/30">' +
+                html += '<div style="padding:12px;background:rgba(26,26,37,0.5);border-radius:8px;color:#d1d5db;font-size:14px;text-align:center;cursor:pointer;border:1px solid transparent;transition:all 0.3s;" ' +
+                        'onmouseover="this.style.borderColor=\'rgba(212,175,55,0.3)\';this.style.color=\'#D4AF37\';" ' +
+                        'onmouseout="this.style.borderColor=\'transparent\';this.style.color=\'#d1d5db\';">' +
                         artist + '</div>';
             });
             
@@ -940,6 +923,7 @@
             if (menuBtn && mobileMenu) {
                 menuBtn.onclick = function() {
                     mobileMenu.style.display = 'flex';
+                    console.log('Menu mobile aberto');
                 };
             }
             
@@ -963,6 +947,7 @@
                 showAllBtn.onclick = function() {
                     showAllArtistsModal();
                 };
+                console.log('Botão "Ver Lista Completa" configurado');
             }
             
             // Fechar modal
